@@ -1058,6 +1058,7 @@ enum resc
 
 /*******************************************************************/
 
+#define ENUM_ASEQ_SIZE 25		// verified by hand :P
 enum aseq
    {
    mkpaths,

@@ -1204,6 +1204,7 @@ void DoTree(int passes,char *info)
 
 Debug("DoTree(%d,%s)\n",passes,info);
  
+ResetActionSeqStartTimes();
 for (PASS = 1; PASS <= passes; PASS++)
    {
    for (action = VACTIONSEQ; action !=NULL; action=action->next)
@@ -1234,7 +1235,9 @@ for (PASS = 1; PASS <= passes; PASS++)
       Verbose(" %s Sched: %s pass %d @ %s",info,action->name,PASS,ctime(&CFINITSTARTTIME));
       Verbose("*********************************************************************\n\n");
       
-      switch (EvaluateAction(action->name,&VADDCLASSES,PASS))
+      enum aseq action_seq = EvaluateAction(action->name,&VADDCLASSES,PASS);
+      SetActionSeqStartTime(action_seq);
+      switch (action_seq)
          {
          case mountinfo:
              if (PASS == 1)

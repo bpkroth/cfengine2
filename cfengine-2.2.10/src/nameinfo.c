@@ -891,6 +891,76 @@ Debug("Job start time set to %s\n",ctime(&tloc));
 
 /*******************************************************************/
 
+void ResetActionSeqStartTimes()
+
+{
+Debug("Resetting initial action seq job start times\n");
+
+memset(CFACTIONSEQSTARTTIMES, 0, sizeof(time_t) * ENUM_ASEQ_SIZE);
+}
+
+/*******************************************************************/
+
+void SetActionSeqStartTime(enum aseq action_seq)
+
+{ time_t tloc;
+
+int action_seq_index = (int)action_seq;
+if (action_seq_index >= ENUM_ASEQ_SIZE || action_seq_index < 0)
+{
+  char vbuff[CF_BUFSIZE];
+  snprintf(vbuff, CF_BUFSIZE, "Invalid CFACTIONSEQSTARTTIMES index %d!\n", action_seq_index);
+  CfLog(cferror,vbuff,"SetActionSeqStartTime");
+  exit(1);
+}
+
+time_t tlast = CFACTIONSEQSTARTTIMES[action_seq_index];
+if (tlast != 0)
+{
+  Debug("%s job start time already set to %s\n",
+    (action_seq != plugin) ? ACTIONSEQTEXT[action_seq_index] : "module",ctime(&tlast));
+  return;
+}
+
+if ((tloc = time((time_t *)NULL)) == -1)
+   {
+   CfLog(cferror,"Couldn't read system clock\n","");
+   }
+
+CFACTIONSEQSTARTTIMES[action_seq_index] = tloc;
+
+Debug("%s job start time set to %s\n",
+  (action_seq != plugin) ? ACTIONSEQTEXT[action_seq_index] : "module",ctime(&tloc));
+}
+
+/*******************************************************************/
+
+time_t GetActionSeqStartTime(enum aseq action_seq)
+
+{ time_t tlast;
+
+int action_seq_index = (int)action_seq;
+if (action_seq_index >= ENUM_ASEQ_SIZE || action_seq_index < 0)
+{
+  char vbuff[CF_BUFSIZE];
+  snprintf(vbuff, CF_BUFSIZE, "Invalid CFACTIONSEQSTARTTIMES index %d!\n", action_seq_index);
+  CfLog(cferror,vbuff,"GetActionSeqStartTime");
+  exit(1);
+}
+
+tlast = CFACTIONSEQSTARTTIMES[action_seq_index];
+if (tlast == 0)
+{
+  tlast = CFSTARTTIME;
+  Debug("%s job start time unavailable, using CFSTARTTIME %s instead\n",
+    (action_seq != plugin) ? ACTIONSEQTEXT[action_seq_index] : "module",CFSTARTTIME);
+}
+
+return tlast;
+}
+
+/*******************************************************************/
+
 void BuildClassEnvironment()
 
 { struct Item *ip;
