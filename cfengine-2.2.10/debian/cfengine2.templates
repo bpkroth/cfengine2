@@ -1,0 +1,28 @@
+Template: cfengine2/run_cfexecd
+Type: boolean
+Default: false
+_Description: Start cfexecd at boot-time?
+ cfexecd is a scheduler that periodically runs cfagent, the program that
+ actually does the work.
+ .
+ If you invoke cfagent by hand or choose to run it from cron instead, you
+ may not require this.
+
+Template: cfengine2/run_cfservd
+Type: boolean
+Default: false
+_Description: Start cfservd at boot-time?
+ cfservd manages file-serving to remote cfagent processes.
+ .
+ It also provides a facility for remote hosts (after authenticating) to ask
+ cfservd to run cfagent.
+
+Template: cfengine2/run_cfenvd
+Type: boolean
+Default: false
+_Description: Start cfenvd at boot-time?
+ cfenvd monitors the system environment (disk usage, run queue length etc.)
+ and notes the mean and standard deviation for each.
+ .
+ Information gathered here is easily available to cfagent, and can be
+ output using cfenvgraph.

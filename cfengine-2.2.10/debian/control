@@ -1,0 +1,38 @@
+Source: cfengine2
+Section: admin
+Priority: optional
+Maintainer: Antonio Radici <antonio@debian.org>
+Build-Depends: debhelper (>= 7.0.50), autoconf, automake, autotools-dev,
+ bison, dh-autoreconf, flex, libdb-dev, libssl-dev, libtool, perl (>= 5),
+ po-debconf, texinfo, quilt
+Standards-Version: 3.9.3
+Vcs-Browser: http://git.debian.org/?p=collab-maint/cfengine2.git
+Vcs-Git: git://git.debian.org/git/collab-maint/cfengine2.git
+DM-Upload-Allowed: yes
+Homepage: http://www.cfengine.org/
+
+Package: cfengine2
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Conflicts: cfengine
+Replaces: cfengine2-doc
+Description: Tool for configuring and maintaining network machines
+ The main purpose of cfengine is to allow the system administrator
+ to create a single central file which will define how every host
+ on a network should be configured.
+ .
+ It takes a while to set up cfengine for a network (especially an
+ already existing network), but once that is done you will wonder
+ how you ever lived without it!
+
+Package: cfengine2-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: cfengine2 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: debugging symbols for cfengine2
+ The main purpose of cfengine is to allow the system administrator
+ to create a single central file which will define how every host
+ on a network should be configured.
+ .
+ This package contains the debugging symbols for cfengine2.

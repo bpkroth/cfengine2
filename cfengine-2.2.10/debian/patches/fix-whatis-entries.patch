@@ -1,0 +1,81 @@
+Fix the name of the binaries as they are in the filesystem, so that whatis, a
+program that is based on the manual pages, will be able to find them
+
+diff --git a/doc/cfetoolcheck.8 b/doc/cfetoolcheck.8
+index 4ef6e0c..da82641 100644
+--- a/doc/cfetoolcheck.8
++++ b/doc/cfetoolcheck.8
+@@ -131,7 +131,7 @@
+ .IX Title "CFETOOLCHECK 1"
+ .TH CFETOOLCHECK 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+-cfetool check \- Check a new value against the averages currently in the database
++cfetoolcheck \- Check a new value against the averages currently in the database
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ \&\fBcfetool\fR \fBcheck\fR \fIname\fR
+diff --git a/doc/cfetoolcreate.8 b/doc/cfetoolcreate.8
+index e212137..7e0f835 100644
+--- a/doc/cfetoolcreate.8
++++ b/doc/cfetoolcreate.8
+@@ -131,7 +131,7 @@
+ .IX Title "CFETOOLCREATE 1"
+ .TH CFETOOLCREATE 1 "2004-09-22" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+-cfetool create \- Set up a new Database
++cfetoolcreate \- Set up a new Database
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ \&\fBcfetool\fR \fBcreate\fR \fIname\fR
+diff --git a/doc/cfetooldump.8 b/doc/cfetooldump.8
+index 8d5c734..568dc11 100644
+--- a/doc/cfetooldump.8
++++ b/doc/cfetooldump.8
+@@ -131,7 +131,7 @@
+ .IX Title "CFETOOLDUMP 1"
+ .TH CFETOOLDUMP 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+-cfetool dump \- dump the contents of a database in XML format
++cfetooldump \- dump the contents of a database in XML format
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ \&\fBcfetool\fR \fBdump\fR \fIname\fR
+diff --git a/doc/cfetoolimport.8 b/doc/cfetoolimport.8
+index 7af8869..57116b9 100644
+--- a/doc/cfetoolimport.8
++++ b/doc/cfetoolimport.8
+@@ -131,7 +131,7 @@
+ .IX Title "CFETOOLIMPORT 1"
+ .TH CFETOOLIMPORT 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+-cfetool import \- import the contents of a database from XML format
++cfetoolimport \- import the contents of a database from XML format
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ \&\fBcfetool\fR \fBimport\fR \fIname\fR
+diff --git a/doc/cfetoolinfo.8 b/doc/cfetoolinfo.8
+index 121fb9a..2490f30 100644
+--- a/doc/cfetoolinfo.8
++++ b/doc/cfetoolinfo.8
+@@ -131,7 +131,7 @@
+ .IX Title "CFETOOLINFO 1"
+ .TH CFETOOLINFO 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+-cfetool info \- Get information about a database
++cfetoolinfo \- Get information about a database
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ \&\fBcfetool\fR \fBinfo\fR \fIname\fR
+diff --git a/doc/cfetoolupdate.8 b/doc/cfetoolupdate.8
+index 2f41b1e..34a0144 100644
+--- a/doc/cfetoolupdate.8
++++ b/doc/cfetoolupdate.8
+@@ -131,7 +131,7 @@
+ .IX Title "CFETOOLUPDATE 1"
+ .TH CFETOOLUPDATE 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+-cfetool update \- Update the database with a new value
++cfetoolupdate \- Update the database with a new value
+ .SH "SYNOPSIS"
+ .IX Header "SYNOPSIS"
+ \&\fBcfetool\fR \fBupdate\fR \fIname\fR

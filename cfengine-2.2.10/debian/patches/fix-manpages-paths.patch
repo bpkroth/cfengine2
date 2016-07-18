@@ -1,0 +1,137 @@
+Use FHS paths rather than /usr/lcoal paths
+
+diff --git a/doc/cfagent.8 b/doc/cfagent.8
+index e3da7a3..052fc52 100644
+--- a/doc/cfagent.8
++++ b/doc/cfagent.8
+@@ -2,7 +2,7 @@
+ .SH NAME
+ cfagent \- system configuration agent
+ .SH SYNOPSIS
+-/usr/local/sbin/cfagent [options]
++/usr/sbin/cfagent [options]
+ 
+ .SH DESCRIPTION
+ .B cfengine
+diff --git a/doc/cfengine.8 b/doc/cfengine.8
+index a7b2d54..6179de8 100644
+--- a/doc/cfengine.8
++++ b/doc/cfengine.8
+@@ -2,19 +2,19 @@
+ .SH NAME
+ cfengine \- network configuration engine
+ .SH SYNOPSIS
+-/usr/local/sbin/cfagent [options]
++/usr/sbin/cfagent [options]
+ .PP
+-/usr/local/sbin/cfrun [options] 
++/usr/sbin/cfrun [options] 
+ .PP
+-/usr/local/sbin/cfservd
++/usr/sbin/cfservd
+ .PP
+-/usr/local/sbin/cfexecd
++/usr/sbin/cfexecd
+ .PP
+-/usr/local/sbin/cfenvd
++/usr/sbin/cfenvd
+ .PP
+-/usr/local/sbin/cfkey
++/usr/sbin/cfkey
+ .PP
+-/usr/local/sbin/cfenvgraph
++/usr/sbin/cfenvgraph
+ 
+ .SH DESCRIPTION
+ .B cfengine
+diff --git a/doc/cfenvd.8 b/doc/cfenvd.8
+index 07faa9b..d49422e 100644
+--- a/doc/cfenvd.8
++++ b/doc/cfenvd.8
+@@ -3,7 +3,7 @@
+ cfengine \- network configuration engine
+ .SH SYNOPSIS
+ 
+-/usr/local/sbin/cfenvd
++/usr/sbin/cfenvd
+ 
+ 
+ .SH DESCRIPTION
+diff --git a/doc/cfenvgraph.8 b/doc/cfenvgraph.8
+index d3bcfab..bb38021 100644
+--- a/doc/cfenvgraph.8
++++ b/doc/cfenvgraph.8
+@@ -3,7 +3,7 @@
+ cfengine \- network configuration engine
+ .SH SYNOPSIS
+ 
+-/usr/local/sbin/cfenvgraph [options]
++/usr/sbin/cfenvgraph [options]
+ 
+ .SH COMMAND LINE OPTIONS
+ .IP --help
+diff --git a/doc/cfexecd.8 b/doc/cfexecd.8
+index a4e2b5b..81b2611 100644
+--- a/doc/cfexecd.8
++++ b/doc/cfexecd.8
+@@ -2,7 +2,7 @@
+ .SH NAME
+ cfengine \- network configuration engine
+ .SH SYNOPSIS
+-/usr/local/sbin/cfexecd
++/usr/sbin/cfexecd
+ 
+ .SH DESCRIPTION
+ .B cfengine
+diff --git a/doc/cfkey.8 b/doc/cfkey.8
+index 99d7a71..0e71842 100644
+--- a/doc/cfkey.8
++++ b/doc/cfkey.8
+@@ -3,7 +3,7 @@
+ cfengine \- network configuration engine
+ .SH SYNOPSIS
+ 
+-/usr/local/sbin/cfkey
++/usr/sbin/cfkey
+ 
+ 
+ .SH DESCRIPTION
+diff --git a/doc/cfrun.8 b/doc/cfrun.8
+index 4341fa6..9678fc0 100644
+--- a/doc/cfrun.8
++++ b/doc/cfrun.8
+@@ -3,7 +3,7 @@
+ cfrun \- Execute remote cfagents
+ .SH SYNOPSIS
+ 
+-/usr/local/sbin/cfrun [options] 
++/usr/sbin/cfrun [options] 
+ 
+ .SH DESCRIPTION
+ .B cfengine
+diff --git a/doc/cfservd.8 b/doc/cfservd.8
+index 27ba58c..048f3a8 100644
+--- a/doc/cfservd.8
++++ b/doc/cfservd.8
+@@ -2,7 +2,7 @@
+ .SH NAME
+ cfservd \- cfengine server daemon
+ .SH SYNOPSIS
+-/usr/local/sbin/cfservd [options]
++/usr/sbin/cfservd [options]
+ 
+ .SH DESCRIPTION
+ .B cfengine
+diff --git a/doc/cfshow.8 b/doc/cfshow.8
+index fd65d96..d1c775d 100644
+--- a/doc/cfshow.8
++++ b/doc/cfshow.8
+@@ -3,7 +3,7 @@
+ cfshow \- Dump cfengine databases
+ .SH SYNOPSIS
+ 
+-/usr/local/sbin/cfshow [options] 
++/usr/sbin/cfshow [options] 
+ 
+ .SH DESCRIPTION
+ .B cfengine

@@ -1,0 +1,91 @@
+# Portuguese translation for cfengine2 debconf messages.
+# Copyright (C) 2007 Pedro Ribeiro <p.m42.ribeiro@gmail.com>
+# This file is distributed under the same license as the cfengine2 package.
+# Pedro Ribeiro <p.m42.ribeiro@gmail.com>, 2007
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cfengine2 2.1.22\n"
+"Report-Msgid-Bugs-To: cfengine2@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-14 19:14+0000\n"
+"PO-Revision-Date: 2007-05-22 22:08+0100\n"
+"Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid "Start cfexecd at boot-time?"
+msgstr "Iniciar cfexecd no arranque?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"cfexecd is a scheduler that periodically runs cfagent, the program that "
+"actually does the work."
+msgstr ""
+"cfexecd é um programa que periodicamente executa o cfagent, o programa que "
+"realmente faz o trabalho."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"If you invoke cfagent by hand or choose to run it from cron instead, you may "
+"not require this."
+msgstr ""
+"Se executar o cfagent manualmente ou criar uma regra para o cron, pode não "
+"precisar disto."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "Start cfservd at boot-time?"
+msgstr "Iniciar cfservd no arranque?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "cfservd manages file-serving to remote cfagent processes."
+msgstr "cfservd gere o serviço de ficheiros para processos remotos do cfagent."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid ""
+"It also provides a facility for remote hosts (after authenticating) to ask "
+"cfservd to run cfagent."
+msgstr ""
+"Fornece também uma funcionalidade para que máquinas remotas (após "
+"autenticação) possam iniciar o cfagent através do cfservd."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid "Start cfenvd at boot-time?"
+msgstr "Iniciar o cfenvd no arranque?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"cfenvd monitors the system environment (disk usage, run queue length etc.) "
+"and notes the mean and standard deviation for each."
+msgstr ""
+"cfenvd monitoriza o ambiente do sistema (utilização do disco, tamanho da "
+"fila de espera do processador, etc.) e calcula a média e o desvio padrão de "
+"cada um dos indicadores."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"Information gathered here is easily available to cfagent, and can be output "
+"using cfenvgraph."
+msgstr ""
+"A informação obtida aqui está disponível para o cfagent, e pode ser mostrada "
+"com o cfenvgraph."

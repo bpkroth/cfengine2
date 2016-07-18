@@ -1,0 +1,10 @@
+Document: cfengine2
+Title: cfengine2 manual
+Author: Mark Burgess
+Abstract: The reference manual and tutorial for cfengine2, 
+ a tool for configuring and maintaining network machines
+Section: System/Administration
+
+Format: HTML
+Index: /usr/share/doc/cfengine2/html/cfengine-Tutorial.html
+Files: /usr/share/doc/cfengine2/html/*

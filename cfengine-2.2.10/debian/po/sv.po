@@ -1,0 +1,101 @@
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cfengine2 2.1.15-1\n"
+"Report-Msgid-Bugs-To: cfengine2@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-14 19:14+0000\n"
+"PO-Revision-Date: 2005-10-25 17:21+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Language-Team: Swedish <sv@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: swed\n"
+"X-Poedit-Country: swed\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid "Start cfexecd at boot-time?"
+msgstr "Starta cfexecd vid systemets uppstart?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"cfexecd is a scheduler that periodically runs cfagent, the program that "
+"actually does the work."
+msgstr ""
+"cfexecd är en schemaläggare som regelbundet kör cfagent, programmet som "
+"faktiskt gör jobbet."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"If you invoke cfagent by hand or choose to run it from cron instead, you may "
+"not require this."
+msgstr ""
+"Om du startar cfagent manuellt eller väljer att köra det från cron istället "
+"behöver du inte kräva detta."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "Start cfservd at boot-time?"
+msgstr "Starta cfservd vid systemets uppstart?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "cfservd manages file-serving to remote cfagent processes."
+msgstr "cfservd hanterar filtjänsten för cfagent-processer på fjärrsystem."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid ""
+"It also provides a facility for remote hosts (after authenticating) to ask "
+"cfservd to run cfagent."
+msgstr ""
+"Den ger också en möjligheten för fjärrsystem (efter autentisering) att fråga "
+"cfservd att köra cfagent."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid "Start cfenvd at boot-time?"
+msgstr "Starta cfenvd vid systemets uppstart?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"cfenvd monitors the system environment (disk usage, run queue length etc.) "
+"and notes the mean and standard deviation for each."
+msgstr ""
+"cfenvd undersöker systemets miljö (diskanvändning, kör kölängder etc) och "
+"noterar användning och standardavvikelser för dessa."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"Information gathered here is easily available to cfagent, and can be output "
+"using cfenvgraph."
+msgstr ""
+"Information som samlas in här är lätt tillgänglig för cfagent och kan hämtas "
+"ut med cfenvgraph."

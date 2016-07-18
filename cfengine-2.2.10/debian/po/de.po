@@ -1,0 +1,91 @@
+# Translation of cfengine2 debconf templates to German
+# Copyright (C) Patrick Willam <patrick@patrick-willam.de>, 2003.
+# Copyright (C) Helge Kreutzmann <debian@helgefjell.de>, 2007.
+# This file is distributed under the same license as the cfengine2 package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cfengine2 2.1.20-1\n"
+"Report-Msgid-Bugs-To: cfengine2@packages.debian.org\n"
+"POT-Creation-Date: 2007-02-09 10:07+0100\n"
+"PO-Revision-Date: 2007-02-18 10:49+0100\n"
+"Last-Translator: Helge Kreutzmann <debian@helgefjell.de>\n"
+"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid "Start cfexecd at boot-time?"
+msgstr "Soll cfexecd beim Hochfahren gestartet werden?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"cfexecd is a scheduler that periodically runs cfagent, the program that "
+"actually does the work."
+msgstr ""
+"Cfexecd ist ein Steuerprogramm, welches periodisch Cfagent ausführt. Cfagent "
+"erledigt die eigentliche Arbeit."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"If you invoke cfagent by hand or choose to run it from cron instead, you may "
+"not require this."
+msgstr ""
+"Falls Sie Cfagent von Hand aufrufen oder es stattdessen vom cron ausführen, "
+"dann könnten Sie dies nicht benötigen."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "Start cfservd at boot-time?"
+msgstr "Soll Cfservd beim Hochfahren gestartet werden?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "cfservd manages file-serving to remote cfagent processes."
+msgstr "Cfservd ist ein Datei-Server für nicht-lokale Cfagent-Prozesse."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid ""
+"It also provides a facility for remote hosts (after authenticating) to ask "
+"cfservd to run cfagent."
+msgstr ""
+"Für nicht-lokale Rechner stellt es außerdem (nach Authentifizierung) eine "
+"Möglichkeit zur Verfügung, Cfservd darum zu bitten, Cfagent auszuführen."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid "Start cfenvd at boot-time?"
+msgstr "Soll Cfenvd beim Hochfahren gestartet werden?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"cfenvd monitors the system environment (disk usage, run queue length etc.) "
+"and notes the mean and standard deviation for each."
+msgstr ""
+"Cfenvd beobachtet ihre Systemumgebung - Plattennutzung, Länge der "
+"Prozesswarteschlange (run queue length) usw. - und notiert jeweils den "
+"Durchschnitt und die Standard-Abweichung."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"Information gathered here is easily available to cfagent, and can be output "
+"using cfenvgraph."
+msgstr ""
+"Hier zusammengetragene Informationen sind für cfagent problemlos verfügbar, "
+"und können mittels Cfenvgraph ausgegeben werden."

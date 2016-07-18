@@ -1,0 +1,92 @@
+# translation of ru.po to Russian
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Yuri Kozlov <yuray@komyakino.ru>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: cfengine2 2.2.10-1\n"
+"Report-Msgid-Bugs-To: cfengine2@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-14 19:14+0000\n"
+"PO-Revision-Date: 2009-07-02 20:45+0400\n"
+"Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid "Start cfexecd at boot-time?"
+msgstr "Запускать cfexecd при включении компьютера?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"cfexecd is a scheduler that periodically runs cfagent, the program that "
+"actually does the work."
+msgstr ""
+"cfexecd -- это планировщик, который периодически запускает "
+"cfagent -- программу, которая на самом деле выполняется всю работу."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"If you invoke cfagent by hand or choose to run it from cron instead, you may "
+"not require this."
+msgstr "Если вы запускаете cfagent вручную или из cron, ответьте отрицательно."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "Start cfservd at boot-time?"
+msgstr "Запускать cfservd при включении компьютера?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "cfservd manages file-serving to remote cfagent processes."
+msgstr "cfservd выполняет операции с файлами для удалённых процессов cfagent."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid ""
+"It also provides a facility for remote hosts (after authenticating) to ask "
+"cfservd to run cfagent."
+msgstr ""
+"Также он позволяет удалённым хостам (после аутентификации) "
+"запросить cfservd запуск cfagent."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid "Start cfenvd at boot-time?"
+msgstr "Запускать cfenvd при включении компьютера?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"cfenvd monitors the system environment (disk usage, run queue length etc.) "
+"and notes the mean and standard deviation for each."
+msgstr ""
+"cfenvd следит за системным окружением (использование диска, длина очереди "
+"выполнения и т.д.) и отмечает среднее и стандартное отклонение каждого "
+"параметра."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"Information gathered here is easily available to cfagent, and can be output "
+"using cfenvgraph."
+msgstr ""
+"Собранная информация легко доступна cfagent, и может быть показана "
+"с помощью cfenvgraph."
+

@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Damyan Ivanov <dmn@debian.org>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: cfengine2@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-14 19:14+0000\n"
+"PO-Revision-Date: 2009-03-06 08:51+0200\n"
+"Last-Translator: Damyan Ivanov <dmn@debian.org>\n"
+"Language-Team: Bulgarian <dict@fsa-bg.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid "Start cfexecd at boot-time?"
+msgstr "Стартиране на cfexecd при зареждане на системата?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"cfexecd is a scheduler that periodically runs cfagent, the program that "
+"actually does the work."
+msgstr "cfexecd е диспечер, прериодично изпълняващ cfagent — програмата, която върши работата."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"If you invoke cfagent by hand or choose to run it from cron instead, you may "
+"not require this."
+msgstr "Това не е необходимо ако предпочитате да изпълнявате cfagent на ръка или чрез cron."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "Start cfservd at boot-time?"
+msgstr "Стартиране на cfservd при зареждане на системата?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "cfservd manages file-serving to remote cfagent processes."
+msgstr "cfservd отговаря за сервирането на файлове към отдалечените cfagent процеси."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid ""
+"It also provides a facility for remote hosts (after authenticating) to ask "
+"cfservd to run cfagent."
+msgstr "Предлага и възможност на отдалечените хостове да изискват стартирането на cfagent (след оторизация)."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid "Start cfenvd at boot-time?"
+msgstr "Стартиране на cfenvd при зареждане на системата?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"cfenvd monitors the system environment (disk usage, run queue length etc.) "
+"and notes the mean and standard deviation for each."
+msgstr "cfenvd наблюдава някои параметри на системата (използвано дисково пространство, активни процеси и т.н.) и изчислява средните стойности и отклоненията."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"Information gathered here is easily available to cfagent, and can be output "
+"using cfenvgraph."
+msgstr "Събраната информация е достъпна за cfagent и може да се използва от cfenvgraph."
+

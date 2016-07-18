@@ -1,0 +1,99 @@
+# translation of cfengine2_2.1.10-2_templates.po to catalan
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans#
+#    Developers do not need to manually edit POT or PO files.
+# Jordi Fernández Mora <jordi.fernandezmo@campus.uab.es>, 2004.
+# Miguel Gea Milvaques <debian@miguelgea.com>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cfengine2_2.1.10-2\n"
+"Report-Msgid-Bugs-To: cfengine2@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-14 19:14+0000\n"
+"PO-Revision-Date: 2004-12-13 23:34+0100\n"
+"Last-Translator: Miguel Gea Milvaques <debian@miguelgea.com>\n"
+"Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid "Start cfexecd at boot-time?"
+msgstr "Voleu executar cfexecd cada cop que arrenqui la màquina?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"cfexecd is a scheduler that periodically runs cfagent, the program that "
+"actually does the work."
+msgstr ""
+"cfexecd és una planificador que executa de forma periòdica cfagent, el "
+"programa que realment fa el treball."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"If you invoke cfagent by hand or choose to run it from cron instead, you may "
+"not require this."
+msgstr ""
+"Si executeu cfagent a mà o fent servir el cron, podrieu no necessitar açò."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "Start cfservd at boot-time?"
+msgstr "Voleu executar cfservd a l'arrancar la màquina ?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "cfservd manages file-serving to remote cfagent processes."
+msgstr "cfservd gestiona el servei de fitxers a processos remots de cfagent."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid ""
+"It also provides a facility for remote hosts (after authenticating) to ask "
+"cfservd to run cfagent."
+msgstr ""
+"Per maquines remotes,també dona la facilitat de preguntar a cfservd de "
+"executar cfagent (desprès de autenticar-se)."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid "Start cfenvd at boot-time?"
+msgstr "Voleu executar cfenvd a l'arrancar la màquina?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"cfenvd monitors the system environment (disk usage, run queue length etc.) "
+"and notes the mean and standard deviation for each."
+msgstr ""
+"cfenvd monitora l'entorn del sistema (ús de disc,longitud de la cua "
+"d'execució etc) i anota la mitjana i la desviació estandard per cadascún."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"Information gathered here is easily available to cfagent, and can be output "
+"using cfenvgraph."
+msgstr ""
+"La informació reunida ací està fàcilment disponible pel cfagent, i es pot "
+"veure usant cfenvgraph."

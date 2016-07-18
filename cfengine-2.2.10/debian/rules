@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+# vim:noet:ts=4:sw=4:
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_autoreconf
+	./configure --sysconfdir=/etc \
+				--with-workdir=/var/lib/cfengine2 \
+				--prefix=/usr \
+				--mandir=\$${prefix}/share/man \
+				--infodir=\$${prefix}/share/info \
+				--with-docs CFLAGS="$(CFLAGS)" \
+				LDFLAGS="-Wl,-z,defs" 
+
+override_dh_clean:
+	dh_autoreconf_clean
+	dh_clean
+
+override_dh_strip:
+	dh_strip --dbg-package=cfengine2-dbg

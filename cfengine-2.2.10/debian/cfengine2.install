@@ -1,0 +1,4 @@
+debian/tmp/usr/sbin/*                    usr/sbin/
+debian/tmp/usr/share/man/*               usr/share/man/
+debian/tmp/usr/share/cfengine/html/*     usr/share/doc/cfengine2/html
+debian/tmp/usr/share/cfengine/*.example  usr/share/doc/cfengine2/examples/

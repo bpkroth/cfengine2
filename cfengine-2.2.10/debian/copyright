@@ -1,0 +1,42 @@
+Format-Specification:
+    http://wiki.debian.org/Proposals/CopyrightFormat?action=recall&rev=196
+Upstream-Maintainer: Mark Burgess <Mark.Burgess@iu.hio.no>
+Upstream-Source: http://www.cfengine.org/downloads/
+Upstream-Name: cfengine
+
+Files: *
+Copyright: 1995, Free Software Foundation, Inc.
+License: GPL-2+ | other
+
+Files: contrib/cfdoc
+Copyright: 1995, Andrew Ford andrew@icarus.demon.co.uk
+License: GPL-2+
+
+Files: contrib/cfengine.el
+Copyright: 1997, Rolf Ebert <ebert@waporo.muc.de>
+License: GPL-2+
+
+Files: debian/*
+Copyright: Andrew Stribblehill <ads@debian.org>
+           Morten Werner Forsbring <werner@debian.org>
+           2009, Antonio Radici <antonio@dyne.org>
+License: GPL-2+
+
+License: GPL-2+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; version 2 dated June, 1991 or (at your
+    option) any later version
+
+    On Debian GNU/Linux systems, the complete text of version 2 of the GNU
+    General Public License can be found in `/usr/share/common-licenses/GPL-2'
+
+    In addition, as a special exception, the author of this program gives
+    permission to link the code of its release with the OpenSSL project's
+    "OpenSSL" library (or with modified versions of it that use the same
+    license as the "OpenSSL" library), and distribute the linked executables.
+    You must obey the GNU General Public License in all respects for all of
+    the code used other than "OpenSSL".  If you modify this file, you may
+    extend this exception to your version of the file, but you are not
+    obligated to do so.  If you do not wish to do so, delete this exception
+    statement from your version.
