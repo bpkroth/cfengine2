@@ -69,7 +69,7 @@ char *CFFSTYPES[] =
 
 /*****************************************************************************/
 
-#if defined SOLARIS && defined HAVE_SYS_ACL_H
+#if (defined SOLARIS || defined LINUX) && defined HAVE_SYS_ACL_H
 void
 aclsortperror(int error)
 {
@@ -321,7 +321,7 @@ BuildDceAclEntry_Id(sec_rgy_handle_t rgy_site, sec_rgy_name_t name, sec_acl_entr
 
 /*****************************************************************************/
 
-#if defined SOLARIS && defined HAVE_SYS_ACL_H
+#if (defined SOLARIS || defined LINUX) && defined HAVE_SYS_ACL_H
 
 int
 ParseSolarisMode(char* mode, mode_t oldmode)
@@ -1723,7 +1723,7 @@ int CheckNTACE(
 
 int CheckPosixACE(struct CFACE *aces,char method,char *filename,enum fileactions action)
 {
-#if defined(HAVE_SYS_ACL_H) && defined(SOLARIS)
+#if (defined SOLARIS || defined LINUX) && defined HAVE_SYS_ACL_H
  struct CFACE *ep;
  aclent_t aclbufp[MAX_ACL_ENTRIES], newaclbufp[MAX_ACL_ENTRIES], tmpacl;
  int nacl = 0, newacls = 0, status = 0, update = 0, i, j;

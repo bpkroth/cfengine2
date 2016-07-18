@@ -62,7 +62,7 @@ int EndOfTwoDimList (struct TwoDimList *list);
 
 void aclsortperror (int error);
 
-#if defined SOLARIS && defined HAVE_SYS_ACL_H
+#if (defined SOLARIS || defined LINUX) && defined HAVE_SYS_ACL_H
 struct acl;
 enum cffstype StringToFstype (char *string);
 struct CFACL *GetACL (char *acl_alias);
