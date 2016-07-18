@@ -570,6 +570,9 @@ char *IPString2UQHostname (char *name);
 /* instrument.c */
 
 void RecordPerformance(char *name, time_t t, double value);
+void RecordPerformanceSync(char *name, time_t t, double value);
+void SyncPerformanceDB(void);
+void RecordPerformanceWithFlags(char *name, time_t t, double value, int skip_fsync);
 void RecordClassUsage(void);
 void LastSeen (char *host,enum roles role);
 void CheckFriendConnections(int hours);
@@ -685,7 +688,13 @@ void PreLockState (void);
 void SaveExecLock (void);
 void RestoreExecLock (void);
 void InitializeLocks (void);
+void __InitializeLocks (void);
+int fsync_noop(int fd);
+void reset_db_env_fsync(void);
+void disable_db_env_fsync(void);
 void CloseLocks (void);
+void SyncLocksDB(void);
+void __CloseLocks (void);
 void HandleSignal (int signum);
 int GetLock (char *operator, char *operand, int ifelapsed, int expireafter, char *host, time_t now);
 void ReleaseCurrentLock (void);

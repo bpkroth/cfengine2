@@ -78,6 +78,9 @@ extern char PIDFILE[CF_BUFSIZE];
 extern char  STR_CFENGINEPORT[16];
 extern unsigned short SHORT_CFENGINEPORT;
 
+extern char IS_CFAGENT;
+extern char SKIP_PERF_LOCK_DB_FSYNC;
+
 extern char CFLOCK[CF_BUFSIZE];
 extern char SAVELOCK[CF_BUFSIZE];
 extern char CFLOG[CF_BUFSIZE];

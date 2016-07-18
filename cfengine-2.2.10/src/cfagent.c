@@ -128,6 +128,8 @@ void QueryCheck(void);
 int main(int argc,char *argv[])
 
 { struct Item *ip;
+
+IS_CFAGENT = 'y';
  
 SetContext("global");
 SetSignals(); 
@@ -250,6 +252,9 @@ if (OptionIs(CONTEXTID,"ChecksumPurge", true))
 
 RecordClassUsage();
 SummarizeObjects();
+// Force an fdatasync() of cfengine_lock_db and performance.db.
+SyncPerformanceDB();
+SyncLocksDB();
 CloseAuditLog();
 closelog();
 return 0;
