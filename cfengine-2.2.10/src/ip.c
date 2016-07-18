@@ -39,6 +39,7 @@
 int RemoteConnect(char *host,char forceipv4,short oldport, char *newport) 
 
 { int err;
+  int yes=1;
 
 #if defined(HAVE_GETADDRINFO)
  
@@ -69,7 +70,13 @@ if (forceipv4 == 'n')
          CfLog(cfinform,"Couldn't open a socket","socket");      
          continue;
          }
-      
+
+      if (setsockopt(CONN->sd, SOL_SOCKET,TCP_NODELAY,(char *)&yes,sizeof (int)) == -1)
+         {
+         CfLog(cferror,"Socket options were not accepted","setsockopt");
+         exit(1);
+         }
+
       if (BINDINTERFACE[0] != '\0')
          {
          memset(&query2,0,sizeof(struct addrinfo));   
@@ -164,6 +171,12 @@ if (forceipv4 == 'n')
       {
       CfLog(cferror,"Couldn't open a socket","socket");
       return false;
+      }
+
+   if (setsockopt(CONN->sd, SOL_SOCKET,TCP_NODELAY,(char *)&yes,sizeof (int)) == -1)
+      {
+      CfLog(cferror,"Socket options were not accepted","setsockopt");
+      exit(1);
       }
 
    if (BINDINTERFACE[0] != '\0')
