@@ -402,7 +402,7 @@ for (lp = VCHLINK; lp != NULL; lp = lp->next)
       lp->done = 'y';
       }
 
-   snprintf(VBUFF,CF_BUFSIZE,"%.50s.%.50s",lp->from,lp->to); /* Unique ID for copy locking */
+   snprintf(VBUFF,CF_BUFSIZE,"%.*s.%.*s",(CF_BUFSIZE-2)/2,lp->from,(CF_BUFSIZE-2)/2,lp->to); /* Unique ID for copy locking */
 
    if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
       {
@@ -517,7 +517,7 @@ for (lp = VLINK; lp != NULL; lp = lp->next)
       lp->done = 'y';
       }
 
-   snprintf(VBUFF,CF_BUFSIZE,"%.50s.%.50s",lp->from,lp->to); /* Unique ID for copy locking */
+   snprintf(VBUFF,CF_BUFSIZE,"%.*s.%.*s",(CF_BUFSIZE-2)/2,lp->from,(CF_BUFSIZE-2)/2,lp->to); /* Unique ID for copy locking */
    
    if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
       {
@@ -2583,7 +2583,7 @@ for (svp = VSERVERLIST; svp != NULL; svp=svp->next) /* order servers */
          continue;
          }
       
-      snprintf(vbuff,CF_BUFSIZE,"%.255s.%.50s_%.50s",path,destination,server); /* Unique ID for copy locking */
+      snprintf(vbuff,CF_BUFSIZE,"%.*s.%.*s_%.128s",(CF_BUFSIZE-132)/2,path,(CF_BUFSIZE-132)/2,destination,server); /* Unique ID for copy locking */
       
       if (!GetLock(ASUniqueName("copy"),CanonifyName(vbuff),ip->ifelapsed,ip->expireafter,VUQNAME,CFSTARTTIME))
          {
