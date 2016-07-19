@@ -6,6 +6,8 @@ Build-Depends: debhelper (>= 9~), autoconf, automake, autotools-dev,
  bison, dh-autoreconf, flex, libdb-dev, libssl1.0-dev, libtool, perl (>= 5),
  po-debconf, texinfo, quilt, libselinux1-dev [linux-any]
 Standards-Version: 3.9.8
+# TODO: For POSIX ACL support:
+#, libacl1-dev
 Homepage: http://www.cfengine.org/
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/cfengine2.git
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/cfengine2.git
