@@ -43,6 +43,25 @@ pthread_mutex_t MUTEX_GETADDR = PTHREAD_MUTEX_INITIALIZER;
 /***************************************************************/
 
 void RecordPerformance(char *eventname,time_t t,double value)
+{
+  // By default, don't bother fdatasync()ing the performance db.
+  // It's not critical data and we can add a single call at the very end of a
+  // cfagent run to try and do that for us rather than once for every
+  // RecordPerformance() call.
+  RecordPerformanceWithFlags(eventname, t, value, 1);
+}
+
+void RecordPerformanceSync(char *eventname,time_t t,double value)
+{
+  RecordPerformanceWithFlags(eventname, t, value, 0);
+}
+
+void SyncPerformanceDB()
+{
+  RecordPerformanceSync("DummyEventToSyncPerformanceDB", CFSTARTTIME, 0);
+}
+
+void RecordPerformanceWithFlags(char *eventname,time_t t,double value, int skip_fsync)
 
 { DB *dbp;
   DB_ENV *dbenv = NULL;
@@ -53,6 +72,11 @@ void RecordPerformance(char *eventname,time_t t,double value)
   time_t now = time(NULL);
 
 Debug("PerformanceEvent(%s,%.1f s)\n",eventname,value);
+
+if (skip_fsync)
+   {
+   disable_db_env_fsync();
+   }
 
 snprintf(name,CF_BUFSIZE-1,"%s/%s",CFWORKDIR,CF_PERFORMANCE);
 
@@ -111,6 +135,7 @@ else
    }
 
 dbp->close(dbp,0);
+reset_db_env_fsync();
 }
 
 /***************************************************************/
