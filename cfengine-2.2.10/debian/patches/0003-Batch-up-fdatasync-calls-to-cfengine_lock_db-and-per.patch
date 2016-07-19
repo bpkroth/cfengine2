@@ -1,0 +1,294 @@
+From 5543c87f5fb102cecbe60b3d2d6b258c9d8f0baa Mon Sep 17 00:00:00 2001
+From: Brian Kroth <bpkroth@gmail.com>
+Date: Mon, 18 Jul 2016 16:22:09 -0500
+Subject: [PATCH 3/4] Batch up fdatasync() calls to cfengine_lock_db and
+ performance.db
+
+This commit essentially tells libdb to noop its fdatasync() calls via
+db_env_set_func_fsync() temporarily while cfagent is performing
+operations on its cfengine_lock_db and performance.db.
+
+To make sure that there's at least one fdatasync() operation on those
+files it looks the signal handler and exit code to force a dummy write
+to the db.
+
+It does not apply these hacks to non-cfagent processes (eg: cfservd),
+nor to other databases (since they weren't determined to be significant
+bottlenecks).
+
+In our environment this results in a nearly 50% reduction in cfagent run
+time, with the remainder being in stat info exchanges with a remote
+cfservd for copy file checks.
+
+See commit diff for more detailed comments.
+---
+ src/cf.extern.h  |    3 ++
+ src/cfagent.c    |    5 +++
+ src/globals.c    |    3 ++
+ src/instrument.c |   25 +++++++++++++
+ src/locks.c      |  104 +++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ src/prototypes.h |    9 +++++
+ 6 files changed, 148 insertions(+), 1 deletion(-)
+
+diff --git a/src/cf.extern.h b/src/cf.extern.h
+index c2fa918..ab1555d 100644
+--- a/src/cf.extern.h
++++ b/src/cf.extern.h
+@@ -78,6 +78,9 @@ extern char PIDFILE[CF_BUFSIZE];
+ extern char  STR_CFENGINEPORT[16];
+ extern unsigned short SHORT_CFENGINEPORT;
+ 
++extern char IS_CFAGENT;
++extern char SKIP_PERF_LOCK_DB_FSYNC;
++
+ extern char CFLOCK[CF_BUFSIZE];
+ extern char SAVELOCK[CF_BUFSIZE];
+ extern char CFLOG[CF_BUFSIZE];
+diff --git a/src/cfagent.c b/src/cfagent.c
+index 74ccd1e..0cfc4b7 100644
+--- a/src/cfagent.c
++++ b/src/cfagent.c
+@@ -128,6 +128,8 @@ void QueryCheck(void);
+ int main(int argc,char *argv[])
+ 
+ { struct Item *ip;
++
++IS_CFAGENT = 'y';
+  
+ SetContext("global");
+ SetSignals(); 
+@@ -250,6 +252,9 @@ if (OptionIs(CONTEXTID,"ChecksumPurge", true))
+ 
+ RecordClassUsage();
+ SummarizeObjects();
++// Force an fdatasync() of cfengine_lock_db and performance.db.
++SyncPerformanceDB();
++SyncLocksDB();
+ CloseAuditLog();
+ closelog();
+ return 0;
+diff --git a/src/globals.c b/src/globals.c
+index 49f2640..f9db7b0 100644
+--- a/src/globals.c
++++ b/src/globals.c
+@@ -1261,6 +1261,9 @@ char *OBS[CF_OBSERVABLES][2] =
+   PUBLIC FILE *VLOGFP = NULL; 
+   PUBLIC DB  *AUDITDBP = NULL;
+ 
++  PUBLIC char IS_CFAGENT = 'n';
++  PUBLIC char SKIP_PERF_LOCK_DB_FSYNC = 'y';
++
+   PUBLIC char CFLOCK[CF_BUFSIZE];
+   PUBLIC char SAVELOCK[CF_BUFSIZE]; 
+   PUBLIC char CFLOG[CF_BUFSIZE];
+diff --git a/src/instrument.c b/src/instrument.c
+index 786a70b..d25734b 100644
+--- a/src/instrument.c
++++ b/src/instrument.c
+@@ -43,6 +43,25 @@ pthread_mutex_t MUTEX_GETADDR = PTHREAD_MUTEX_INITIALIZER;
+ /***************************************************************/
+ 
+ void RecordPerformance(char *eventname,time_t t,double value)
++{
++  // By default, don't bother fdatasync()ing the performance db.
++  // It's not critical data and we can add a single call at the very end of a
++  // cfagent run to try and do that for us rather than once for every
++  // RecordPerformance() call.
++  RecordPerformanceWithFlags(eventname, t, value, 1);
++}
++
++void RecordPerformanceSync(char *eventname,time_t t,double value)
++{
++  RecordPerformanceWithFlags(eventname, t, value, 0);
++}
++
++void SyncPerformanceDB()
++{
++  RecordPerformanceSync("DummyEventToSyncPerformanceDB", CFSTARTTIME, 0);
++}
++
++void RecordPerformanceWithFlags(char *eventname,time_t t,double value, int skip_fsync)
+ 
+ { DB *dbp;
+   DB_ENV *dbenv = NULL;
+@@ -54,6 +73,11 @@ void RecordPerformance(char *eventname,time_t t,double value)
+ 
+ Debug("PerformanceEvent(%s,%.1f s)\n",eventname,value);
+ 
++if (skip_fsync)
++   {
++   disable_db_env_fsync();
++   }
++
+ snprintf(name,CF_BUFSIZE-1,"%s/%s",CFWORKDIR,CF_PERFORMANCE);
+ 
+ if ((errno = db_create(&dbp,dbenv,0)) != 0)
+@@ -111,6 +135,7 @@ else
+    }
+ 
+ dbp->close(dbp,0);
++reset_db_env_fsync();
+ }
+ 
+ /***************************************************************/
+diff --git a/src/locks.c b/src/locks.c
+index 143d5a5..1b915b2 100644
+--- a/src/locks.c
++++ b/src/locks.c
+@@ -150,6 +150,9 @@ if (signum != SIGCHLD)
+       {
+       unlink(PIDFILE);
+       ReleaseCurrentLock();
++      // Force an fdatasync() of performance.db and cfengine_lock_db.
++      SyncPerformanceDB();
++      SyncLocksDB();
+       CloseAuditLog();
+       closelog();
+       exit(0);
+@@ -175,7 +178,7 @@ if (signum != SIGCHLD)
+ 
+ /************************************************************************/
+ 
+-void InitializeLocks()
++void __InitializeLocks()
+ 
+ { int errno;
+ 
+@@ -210,7 +213,106 @@ if ((errno = (DBP->open)(DBP,NULL,LOCKDB,NULL,DB_BTREE,DB_CREATE,0644)) != 0)
+ 
+ /************************************************************************/
+ 
++/*
++ * By default, don't sync the lock db on close.  It's opened and closed an
++ * enormous number of times in a cfageant run rather than once and synced at
++ * the end (probably, mistakenly, to handle locking between multiple
++ * processes), so the fdatasync() (done by db->close()) causes a severe
++ * performance penalty for very little practical gain (ie: if the db isn't
++ * flushed to disk during a crash - no biggie, we just start over with fresh
++ * locks).
++ *
++ * Individual processes aren't affected since while the machine is running the
++ * data is still accessed from the OS page cache.
++ *
++ * To do that completely/properly, we tried to provide an explicit DB_ENV
++ * (rather than the default anonymous/private one created in the background by
++ * libdb) for the whole process (or at least a good portion of it) in order to
++ * also set the DB_TXN_WRITE_NOSYNC flag so that every DBP->put() operation
++ * doesn't also cause a fdatasync() (which would basically waste all of our
++ * efforts).  Since we're mostly concerned about the performance of a cfagent
++ * run, currently these improvements were only applied there, and only for the
++ * main processing loop (not the update loop).  All other users of the locks
++ * calls (eg: cfexecd) behaved as before (opening and closing the database
++ * everytime without a DB_ENV and fdatasync()ing every time).  Also, since the
++ * performance.db is called a bunch as well with similar issues, we wrapped it
++ * up in this single DB_ENV as well.
++ *
++ * However, that caused extra __db.0* region files to appear that confused other
++ * non-cooperating processes, so instead, we wrapped all of the lock and
++ * performance db->open()/db->close() pair calls with calls to globally disable
++ * fsync/fdatasync via libdb's db_env_set_func_fsync().  To be safe, we only do
++ * this for cfagent, which doesn't use threads.
++ *
++ * NOTE: That while on the surface this presents as just a performance
++ * optimization, it turns out that it can cause issues in calculating
++ * timestamps via the GetLastLock() call if it ends up causing other action
++ * phases to appear to take a long time.
++ */
++
++// NOTE: these are also used in RecordPerformance().
++// dummy fsync/fdatasync
++int fsync_noop(int fd) {
++   return 0;
++}
++
++void reset_db_env_fsync()
++{  int errno;
++   if ((errno = db_env_set_func_fsync(&fdatasync)) != 0)
++   {
++   snprintf(OUTPUT,CF_BUFSIZE*2,"Failed to reset db environment fsync/fdsatasync\n");
++   CfLog(cferror,OUTPUT,"reset_db_env_fsync");
++   }
++}
++
++void disable_db_env_fsync()
++{  int errno;
++   if (IS_CFAGENT != 'y')
++      return;
++   if (SKIP_PERF_LOCK_DB_FSYNC != 'y')
++      return;
++   // TODO: Timer or counter based forced fsyncing as well.  How to determine which fd to do that for though?
++   if ((errno = db_env_set_func_fsync(&fsync_noop)) != 0)
++   {
++   snprintf(OUTPUT,CF_BUFSIZE*2,"Failed to disable db environment fsync/fdsatasync\n");
++   CfLog(cferror,OUTPUT,"disable_db_env_fsync");
++   }
++}
++
++void InitializeLocks()
++{
++   disable_db_env_fsync();
++   __InitializeLocks();
++}
+ void CloseLocks()
++{
++   __CloseLocks();
++   reset_db_env_fsync();
++}
++
++void SyncLocksDB()
++{
++   if (IGNORELOCK)
++   {
++   return 0;
++   }
++
++   SKIP_PERF_LOCK_DB_FSYNC = 'n';
++
++   // Need to write some dummy data there otherwise libdb swallows the
++   // fsync call as unnecessary.
++   // The PutLock() DeleteLock() calls already wrap themselves in calls to
++   // InitializeLocks() and CloseLocks(), so we use another global variable to
++   // adjust the default syncing behavior and just call them instead.
++   char *DUMMY_LOCK_NAME = "DummyEventToSyncLockDB";
++   int rc = PutLock(DUMMY_LOCK_NAME);
++   rc = DeleteLock(DUMMY_LOCK_NAME);
++   // ignoring errors for now
++
++   SKIP_PERF_LOCK_DB_FSYNC = 'y';
++}
++
++void __CloseLocks()
+ 
+ {
+ if (IGNORELOCK)
+diff --git a/src/prototypes.h b/src/prototypes.h
+index 07d2650..d9db2d9 100644
+--- a/src/prototypes.h
++++ b/src/prototypes.h
+@@ -570,6 +570,9 @@ char *IPString2UQHostname (char *name);
+ /* instrument.c */
+ 
+ void RecordPerformance(char *name, time_t t, double value);
++void RecordPerformanceSync(char *name, time_t t, double value);
++void SyncPerformanceDB(void);
++void RecordPerformanceWithFlags(char *name, time_t t, double value, int skip_fsync);
+ void RecordClassUsage(void);
+ void LastSeen (char *host,enum roles role);
+ void CheckFriendConnections(int hours);
+@@ -685,7 +688,13 @@ void PreLockState (void);
+ void SaveExecLock (void);
+ void RestoreExecLock (void);
+ void InitializeLocks (void);
++void __InitializeLocks (void);
++int fsync_noop(int fd);
++void reset_db_env_fsync(void);
++void disable_db_env_fsync(void);
+ void CloseLocks (void);
++void SyncLocksDB(void);
++void __CloseLocks (void);
+ void HandleSignal (int signum);
+ int GetLock (char *operator, char *operand, int ifelapsed, int expireafter, char *host, time_t now);
+ void ReleaseCurrentLock (void);
+-- 
+1.7.10.4
+

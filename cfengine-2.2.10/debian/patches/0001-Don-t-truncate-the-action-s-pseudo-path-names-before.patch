@@ -1,0 +1,61 @@
+From f6658d41c7d0df76088adace1760aa9d9743403f Mon Sep 17 00:00:00 2001
+From: Brian Kroth <bpkroth@gmail.com>
+Date: Mon, 18 Jul 2016 11:21:27 -0500
+Subject: [PATCH 1/4] Don't truncate the action's pseudo path names before we
+ give them to GetLock()
+
+GetLock() does a sort of checksum over the path names if they're too
+long and makes sure that they fit inside the allocated buffer
+
+So, if we pre-truncate long path names there's nothing their to allow
+them to uniquify with in GetLock().
+
+Later on, if another operation (eg: copy) takes long enough, the
+GetLastLock() elapsedtime check will go negative and it will appear as
+though multiple processes have already performed a link operation if
+their long names collide on the (last) lock name.
+
+That's in fact due to another bug in terms of which timestamp we're
+comparing the last lock to - CFSTARTTIME (the time cfagent started) or
+CFINITSTARTTIME (the time the last pass started).
+
+Really, it should be compared against the first time that a given action
+was first run, but we'll leave that for another commit.
+---
+ src/do.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/do.c b/src/do.c
+index 3747b6f..3c402c7 100644
+--- a/src/do.c
++++ b/src/do.c
+@@ -402,7 +402,7 @@ for (lp = VCHLINK; lp != NULL; lp = lp->next)
+       lp->done = 'y';
+       }
+ 
+-   snprintf(VBUFF,CF_BUFSIZE,"%.50s.%.50s",lp->from,lp->to); /* Unique ID for copy locking */
++   snprintf(VBUFF,CF_BUFSIZE,"%.*s.%.*s",(CF_BUFSIZE-2)/2,lp->from,(CF_BUFSIZE-2)/2,lp->to); /* Unique ID for copy locking */
+ 
+    if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
+       {
+@@ -517,7 +517,7 @@ for (lp = VLINK; lp != NULL; lp = lp->next)
+       lp->done = 'y';
+       }
+ 
+-   snprintf(VBUFF,CF_BUFSIZE,"%.50s.%.50s",lp->from,lp->to); /* Unique ID for copy locking */
++   snprintf(VBUFF,CF_BUFSIZE,"%.*s.%.*s",(CF_BUFSIZE-2)/2,lp->from,(CF_BUFSIZE-2)/2,lp->to); /* Unique ID for copy locking */
+    
+    if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
+       {
+@@ -2583,7 +2583,7 @@ for (svp = VSERVERLIST; svp != NULL; svp=svp->next) /* order servers */
+          continue;
+          }
+       
+-      snprintf(vbuff,CF_BUFSIZE,"%.255s.%.50s_%.50s",path,destination,server); /* Unique ID for copy locking */
++      snprintf(vbuff,CF_BUFSIZE,"%.*s.%.*s_%.128s",(CF_BUFSIZE-132)/2,path,(CF_BUFSIZE-132)/2,destination,server); /* Unique ID for copy locking */
+       
+       if (!GetLock(ASUniqueName("copy"),CanonifyName(vbuff),ip->ifelapsed,ip->expireafter,VUQNAME,CFSTARTTIME))
+          {
+-- 
+1.7.10.4
+

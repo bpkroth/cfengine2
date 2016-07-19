@@ -10,3 +10,7 @@ fix-man-sections.patch
 kfreebsd-configure
 fix-spelling-errors.patch
 658945-drop-getopts-pl.patch
+0001-Don-t-truncate-the-action-s-pseudo-path-names-before.patch
+0002-Fix-timestamp-that-GetLastLock-uses-to-determine-whe.patch
+0003-Batch-up-fdatasync-calls-to-cfengine_lock_db-and-per.patch
+0004-Enable-TCP_NODELAY-to-avoid-waiting-for-buffers-to-f.patch
