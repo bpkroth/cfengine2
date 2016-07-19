@@ -148,7 +148,7 @@ while ((c=getopt_long(argc,argv,"L:d:vhpqFV1g",CFDOPTIONS,&optindex)) != EOF)
          break;
 
       case 'V': printf("GNU %s-%s daemon\n%s\n",PACKAGE,VERSION,COPYRIGHT);
-          printf("This program is covered by the GNU Public License and may be\n");
+          printf("This program is covered by the GNU General Public License and may be\n");
           printf("copied free of charge. No warrenty is implied.\n\n");
           exit(0);
           break;

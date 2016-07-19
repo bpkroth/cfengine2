@@ -2,7 +2,7 @@
 .SH NAME
 cfengine \- network configuration engine
 .SH SYNOPSIS
-/usr/local/sbin/cfexecd
+/usr/sbin/cfexecd
 
 .SH DESCRIPTION
 .B cfengine
@@ -13,7 +13,7 @@ execution of cfagent. It may be used to capture cfagent output
 and send it as mail when run cron cron, e.g.
 
 .PP
-0,30 * * * * /var/cfengine/bin/cfexecd -F
+0,30 * * * * /var/cfengine/bin/cfexecd \-F
 
 .PP
 or it can be run in daemon mode with scheduling parameters

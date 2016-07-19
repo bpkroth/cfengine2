@@ -710,11 +710,11 @@ for (ip = hostlist; ip != NULL; ip=ip->next)
       key.data = timekey;
       key.size = strlen(timekey)+1;
 
-      if ((errno = dbp->get(dbp,NULL,&key,&value,0)) != 0)
+      if ((errno = dbpent->get(dbpent,NULL,&key,&value,0)) != 0)
          {
          if (errno != DB_NOTFOUND)
             {
-            dbp->err(dbp,errno,NULL);
+            dbpent->err(dbpent,errno,NULL);
             exit(1);
             }
          }

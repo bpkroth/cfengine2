@@ -128,10 +128,10 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "CFETOOLCHECK 1"
-.TH CFETOOLCHECK 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+.IX Title "CFETOOLCHECK 8"
+.TH CFETOOLCHECK 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
 .SH "NAME"
-cfetool check \- Check a new value against the averages currently in the database
+cfetoolcheck \- Check a new value against the averages currently in the database
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 \&\fBcfetool\fR \fBcheck\fR \fIname\fR
@@ -148,7 +148,7 @@ cfetool check \- Check a new value against the averages currently in the databas
 .IX Header "DESCRIPTION"
 Takes a new value and checks it against the averages currently in the database
 specified by \fIname\fR, located at the path specified by the \fB\-p\fR argument,
-or the current working directory if the \fB\-p\fR argument is ommitted. 
+or the current working directory if the \fB\-p\fR argument is omitted.
 The value will be associated with the current time, unless the \fB\-t\fR option is
 given. The output indicates how much higher or lower the new value is compared
 to the averages in the database, in terms of the number of standard deviations.
@@ -208,31 +208,31 @@ as compared to an average of equivalent earlier times, as specified below:
 .Vb 27
 \& code    high|low|normal   meaning
 \& -------------------------------------------------------------
-\&  -2     -                 no sigma variation
+\&  \-2     -                 no sigma variation
 \& -------------------------------------------------------------
-\&  -4     low               within noise threshold, and within
-\&  -5     normal              2 standard deviations from
-\&  -6     high                expected value
+\&  \-4     low               within noise threshold, and within
+\&  \-5     normal              2 standard deviations from
+\&  \-6     high                expected value
 \& -------------------------------------------------------------
-\& -14     low               microanomaly: within noise
-\& -15     normal              threshold, but 2 or more standard
-\& -16     high                deviations from expected value
+\& \-14     low               microanomaly: within noise
+\& \-15     normal              threshold, but 2 or more standard
+\& \-16     high                deviations from expected value
 \& -------------------------------------------------------------
-\& -24     low               normal; within 1 standard deviation
-\& -25     normal              from the expected value
-\& -26     high                
+\& \-24     low               normal; within 1 standard deviation
+\& \-25     normal              from the expected value
+\& \-26     high                
 \& -------------------------------------------------------------
-\& -34     low               dev1; more than 1 standard 
-\& -35     normal              deviation from the expected
-\& -36     high                value
+\& \-34     low               dev1; more than 1 standard 
+\& \-35     normal              deviation from the expected
+\& \-36     high                value
 \& ------------------------------------------------------------
-\& -44     low               dev2; more than 2 standard
-\& -45     normal              deviations from the expected
-\& -46     high                value
+\& \-44     low               dev2; more than 2 standard
+\& \-45     normal              deviations from the expected
+\& \-46     high                value
 \& -------------------------------------------------------------
-\& -54     low               anomaly; more than 3 standard
-\& -55     normal              deviations from the expected
-\& -56     high                value
+\& \-54     low               anomaly; more than 3 standard
+\& \-55     normal              deviations from the expected
+\& \-56     high                value
 .Ve
 .PP
 Where \*(L"low\*(R" indicates that the current value is below both the expected value
@@ -247,7 +247,7 @@ standard output stream, as described above.
 .SH "EXAMPLE"
 .IX Header "EXAMPLE"
 .Vb 2
-\&  % cfetool check temperature --path /my/path --value 20 --histograms
+\&  % cfetool check temperature \-\-path /my/path \-\-value 20 \-\-histograms
 \&  yrly=0,bkt=0;wkly=-6,bkt=51;dly=0,bkt=0
 .Ve
 .PP

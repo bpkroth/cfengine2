@@ -1846,7 +1846,7 @@ while ((c=getopt_long(argc,argv,"WbBzMgAbKqkhYHd:vlniIf:pPmcCtsSaeEVD:N:LwxXuUj:
           break;
           
       case 'V': printf("GNU cfengine %s\n%s\n",VERSION,COPYRIGHT);
-          printf("This program is covered by the GNU Public License and may be\n");
+          printf("This program is covered by the GNU General Public License and may be\n");
           printf("copied free of charge.  No warranty is implied.\n\n");
           exit(0);
           

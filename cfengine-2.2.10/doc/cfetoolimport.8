@@ -128,10 +128,10 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "CFETOOLIMPORT 1"
-.TH CFETOOLIMPORT 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+.IX Title "CFETOOLIMPORT 8"
+.TH CFETOOLIMPORT 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
 .SH "NAME"
-cfetool import \- import the contents of a database from XML format
+cfetoolimport \- import the contents of a database from XML format
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 \&\fBcfetool\fR \fBimport\fR \fIname\fR
@@ -148,7 +148,7 @@ Creates a new database from it's \s-1XML\s0 representation, in the format create
 \&\fBrrdtool dump\fR.
 .PP
 The \fB\-d\fR, \fB\-w\fR, and \fB\-y\fR options specify which databases to create and look
-for in the dump, and may be combined. If they are all ommitted, the default is
+for in the dump, and may be combined. If they are all omitted, the default is
 to only import the weekly database.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
@@ -177,7 +177,7 @@ Print a short help message and then exit.
 .SH "EXAMPLE"
 .IX Header "EXAMPLE"
 .Vb 1
-\&  % cfetool import temperature_copy --path /my/path --file ./temperature.xml
+\&  % cfetool import temperature_copy \-\-path /my/path \-\-file ./temperature.xml
 .Ve
 .PP
 Create a new weekly database, \f(CW\*(C`temperature_copy\*(C'\fR, in the \f(CW\*(C`/my/path\*(C'\fR
