@@ -233,6 +233,7 @@ extern int errno;
 #ifdef __GLIBC__
 # include <net/route.h>
 # include <netinet/in.h>
+# include <netinet/tcp.h>
 #else
 # include <linux/route.h>
 # include <linux/in.h>

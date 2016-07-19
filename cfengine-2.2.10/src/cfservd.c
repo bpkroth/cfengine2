@@ -787,6 +787,12 @@ for (ap = response ; ap != NULL; ap=ap->ai_next)
       exit(1);
       }
 
+   if (setsockopt(sd, SOL_SOCKET,TCP_NODELAY,(char *)&yes,sizeof (int)) == -1)
+      {
+      CfLog(cferror,"Socket options were not accepted","setsockopt");
+      exit(1);
+      }
+
    if (bind(sd,ap->ai_addr,ap->ai_addrlen) == 0)
       {
       Debug("Bound to address %s on %s=%d\n",sockaddr_ntop(ap->ai_addr),CLASSTEXT[VSYSTEMHARDCLASS],VSYSTEMHARDCLASS);
@@ -845,6 +851,12 @@ if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, (char *) &yes, sizeof (int)) == -1)
    }
 
  if (setsockopt(sd, SOL_SOCKET, SO_LINGER, (char *) &cflinger, sizeof (struct linger)) == -1)
+   {
+   CfLog(cferror,"Couldn't set socket options","sockopt");
+   exit (1);
+   }
+
+if (setsockopt(sd, SOL_SOCKET, TCP_NODELAY, (char *) &yes, sizeof (int)) == -1)
    {
    CfLog(cferror,"Couldn't set socket options","sockopt");
    exit (1);
