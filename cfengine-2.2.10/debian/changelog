@@ -1,5 +1,17 @@
-cfengine2 (2.2.10-7.1) unstable; urgency=medium
+cfengine2 (2.2.10-7+patches1) unstable; urgency=low
 
+  * Non-maintainer upload:
+    https://github.com/bpkroth/cfengine2
+  * Add some patches to fix some bugs:
+    + f6658d4 Don't truncate the action's pseudo path names before we give
+    them to GetLock()
+    + f346e81 Fix timestamp that GetLastLock() uses to determine when a do
+    action sequence was last performed.
+  * Add some patches to improve some performance:
+    + 5543c87 Batch up fdatasync() calls to cfengine_lock_db and
+    performance.db
+    + a280733 Enable TCP_NODELAY to avoid waiting for buffers to fill while
+    exchanging small file stat messages.
   * Add net-tools package so cfenvd can run netstat and ifconfig.
 
  -- Brian Kroth <bpkroth@gmail.com>  Tue, 20 Jun 2017 13:52:41 -0500

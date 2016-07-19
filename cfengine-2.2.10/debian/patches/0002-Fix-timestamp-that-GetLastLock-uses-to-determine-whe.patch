@@ -1,0 +1,258 @@
+From f346e8153bbe325924d751bd3ccdd830b88f2671 Mon Sep 17 00:00:00 2001
+From: Brian Kroth <bpkroth@gmail.com>
+Date: Mon, 18 Jul 2016 13:24:08 -0500
+Subject: [PATCH 2/4] Fix timestamp that GetLastLock() uses to determine when
+ a do action sequence was last performed.
+
+Work to make GetLastLock(), as called in various do.c functions from
+DoTree(), check the first time an action sequence pass happened, rather
+than the first time DoTree() was called.
+
+This is a related to the bug/fix in f6658d41 - if the lock names aren't
+unique for a given set of actions, and a preceeding action sequence pass
+took longer than 1 minute, then checking the initial DoTree() timestamp
+will cause the colliding lock name actions to skip all but the first
+action in the set.
+
+If we instead check the timestamp of the first time the action sequence
+was run, then we may still collide, but the timestamp check (probably)
+won't prevent the colliding actions from also being performed.
+
+NOTE: This commit (somewhat intentionally) hasn't addressed all calls to
+GetLock(...,CFSTARTTIME) due in part to multiple possible call path
+timestamp comparison complications.
+---
+ src/cf.defs.h    |    1 +
+ src/cf.extern.h  |    1 +
+ src/cfagent.c    |    5 +++-
+ src/do.c         |   14 +++++------
+ src/globals.c    |    2 ++
+ src/nameinfo.c   |   70 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/prototypes.h |    3 +++
+ 7 files changed, 88 insertions(+), 8 deletions(-)
+
+diff --git a/src/cf.defs.h b/src/cf.defs.h
+index 688caaa..b8ea184 100644
+--- a/src/cf.defs.h
++++ b/src/cf.defs.h
+@@ -1058,6 +1058,7 @@ enum resc
+ 
+ /*******************************************************************/
+ 
++#define ENUM_ASEQ_SIZE 25		// verified by hand :P
+ enum aseq
+    {
+    mkpaths,
+diff --git a/src/cf.extern.h b/src/cf.extern.h
+index c2fa918..a942f37 100644
+--- a/src/cf.extern.h
++++ b/src/cf.extern.h
+@@ -146,6 +146,7 @@ extern int ERRORCOUNT;
+ extern int NUMBEROFEDITS;
+ extern time_t CFSTARTTIME;
+ extern time_t CFINITSTARTTIME;
++extern time_t CFACTIONSEQSTARTTIMES[];
+ extern int CF_TIMEOUT;
+ 
+ extern struct utsname VSYSNAME;
+diff --git a/src/cfagent.c b/src/cfagent.c
+index 74ccd1e..65a7ab2 100644
+--- a/src/cfagent.c
++++ b/src/cfagent.c
+@@ -1204,6 +1204,7 @@ void DoTree(int passes,char *info)
+ 
+ Debug("DoTree(%d,%s)\n",passes,info);
+  
++ResetActionSeqStartTimes();
+ for (PASS = 1; PASS <= passes; PASS++)
+    {
+    for (action = VACTIONSEQ; action !=NULL; action=action->next)
+@@ -1234,7 +1235,9 @@ for (PASS = 1; PASS <= passes; PASS++)
+       Verbose(" %s Sched: %s pass %d @ %s",info,action->name,PASS,ctime(&CFINITSTARTTIME));
+       Verbose("*********************************************************************\n\n");
+       
+-      switch (EvaluateAction(action->name,&VADDCLASSES,PASS))
++      enum aseq action_seq = EvaluateAction(action->name,&VADDCLASSES,PASS);
++      SetActionSeqStartTime(action_seq);
++      switch (action_seq)
+          {
+          case mountinfo:
+              if (PASS == 1)
+diff --git a/src/do.c b/src/do.c
+index 3747b6f..2400e52 100644
+--- a/src/do.c
++++ b/src/do.c
+@@ -404,7 +404,7 @@ for (lp = VCHLINK; lp != NULL; lp = lp->next)
+ 
+    snprintf(VBUFF,CF_BUFSIZE,"%.50s.%.50s",lp->from,lp->to); /* Unique ID for copy locking */
+ 
+-   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
++   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,GetActionSeqStartTime(lnks)))
+       {
+       lp->done = 'y';
+       continue;
+@@ -519,7 +519,7 @@ for (lp = VLINK; lp != NULL; lp = lp->next)
+ 
+    snprintf(VBUFF,CF_BUFSIZE,"%.50s.%.50s",lp->from,lp->to); /* Unique ID for copy locking */
+    
+-   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
++   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,GetActionSeqStartTime(lnks)))
+       {
+       lp->done = 'y';
+       continue;
+@@ -611,7 +611,7 @@ void MailCheck()
+   char lmailpath[CF_BUFSIZE];
+ 
+ 
+-if (!GetLock("Mailcheck",CanonifyName(VFSTAB[VSYSTEMHARDCLASS]),0,VEXPIREAFTER,VUQNAME,CFSTARTTIME))
++if (!GetLock("Mailcheck",CanonifyName(VFSTAB[VSYSTEMHARDCLASS]),0,VEXPIREAFTER,VUQNAME,GetActionSeqStartTime(chkmail)))
+    {
+    return;
+    }
+@@ -1270,7 +1270,7 @@ for (ptr = VSCRIPT; ptr != NULL; ptr=ptr->next)
+    ResetOutputRoute(ptr->log,ptr->inform);
+    ExpandVarstring(ptr->name,execstr,NULL);
+ 
+-   if (!GetLock(ASUniqueName("shellcommand"),execstr,ptr->ifelapsed,ptr->expireafter,VUQNAME,CFSTARTTIME))
++   if (!GetLock(ASUniqueName("shellcommand"),execstr,ptr->ifelapsed,ptr->expireafter,VUQNAME,GetActionSeqStartTime(shellcom)))
+       {
+       ptr->done = 'y';
+       continue;
+@@ -2585,7 +2585,7 @@ for (svp = VSERVERLIST; svp != NULL; svp=svp->next) /* order servers */
+       
+       snprintf(vbuff,CF_BUFSIZE,"%.255s.%.50s_%.50s",path,destination,server); /* Unique ID for copy locking */
+       
+-      if (!GetLock(ASUniqueName("copy"),CanonifyName(vbuff),ip->ifelapsed,ip->expireafter,VUQNAME,CFSTARTTIME))
++      if (!GetLock(ASUniqueName("copy"),CanonifyName(vbuff),ip->ifelapsed,ip->expireafter,VUQNAME,GetActionSeqStartTime(imag)))
+          {
+          SILENT = savesilent;
+          ResetOutputRoute('d','d');
+@@ -2793,7 +2793,7 @@ for (pp = VPROCLIST; pp != NULL; pp=pp->next)
+ 
+    snprintf(VBUFF,CF_BUFSIZE-1,"proc-%s-%s",pp->expr,pp->restart);
+    
+-   if (!GetLock(ASUniqueName("processes"),CanonifyName(VBUFF),pp->ifelapsed,pp->expireafter,VUQNAME,CFSTARTTIME))
++   if (!GetLock(ASUniqueName("processes"),CanonifyName(VBUFF),pp->ifelapsed,pp->expireafter,VUQNAME,GetActionSeqStartTime(procs)))
+       {
+       pp->done = 'y';
+       continue;
+@@ -2848,7 +2848,7 @@ for (ptr = VPKG; ptr != NULL; ptr=ptr->next)
+    
+    snprintf(lock,CF_BUFSIZE-1,"%s_%d_%s_%d_%s_%s", name, ptr->cmp, ptr->ver ? ptr->ver: "" ,ptr->action, ptr->defines ?: "", ptr->elsedef ?: "");
+    
+-   if (!GetLock(ASUniqueName("packages"),CanonifyName(lock),ptr->ifelapsed,ptr->expireafter,VUQNAME,CFSTARTTIME))
++   if (!GetLock(ASUniqueName("packages"),CanonifyName(lock),ptr->ifelapsed,ptr->expireafter,VUQNAME,GetActionSeqStartTime(pkgs)))
+       {
+       ptr->done = 'y';
+       continue;
+diff --git a/src/globals.c b/src/globals.c
+index 49f2640..5ab3111 100644
+--- a/src/globals.c
++++ b/src/globals.c
+@@ -165,6 +165,8 @@ pthread_mutex_t MUTEX_LOCK = PTHREAD_MUTEX_INITIALIZER;
+   PUBLIC time_t CFSTARTTIME;
+   PUBLIC time_t CFINITSTARTTIME;
+ 
++  PUBLIC time_t CFACTIONSEQSTARTTIMES[ENUM_ASEQ_SIZE] = {0};
++
+   PUBLIC dev_t ROOTDEVICE = 0;
+ 
+   PUBLIC char  STR_CFENGINEPORT[16];
+diff --git a/src/nameinfo.c b/src/nameinfo.c
+index 8d15d10..06290b6 100644
+--- a/src/nameinfo.c
++++ b/src/nameinfo.c
+@@ -891,6 +891,76 @@ Debug("Job start time set to %s\n",ctime(&tloc));
+ 
+ /*******************************************************************/
+ 
++void ResetActionSeqStartTimes()
++
++{
++Debug("Resetting initial action seq job start times\n");
++
++memset(CFACTIONSEQSTARTTIMES, 0, sizeof(time_t) * ENUM_ASEQ_SIZE);
++}
++
++/*******************************************************************/
++
++void SetActionSeqStartTime(enum aseq action_seq)
++
++{ time_t tloc;
++
++int action_seq_index = (int)action_seq;
++if (action_seq_index >= ENUM_ASEQ_SIZE || action_seq_index < 0)
++{
++  char vbuff[CF_BUFSIZE];
++  snprintf(vbuff, CF_BUFSIZE, "Invalid CFACTIONSEQSTARTTIMES index %d!\n", action_seq_index);
++  CfLog(cferror,vbuff,"SetActionSeqStartTime");
++  exit(1);
++}
++
++time_t tlast = CFACTIONSEQSTARTTIMES[action_seq_index];
++if (tlast != 0)
++{
++  Debug("%s job start time already set to %s\n",
++    (action_seq != plugin) ? ACTIONSEQTEXT[action_seq_index] : "module",ctime(&tlast));
++  return;
++}
++
++if ((tloc = time((time_t *)NULL)) == -1)
++   {
++   CfLog(cferror,"Couldn't read system clock\n","");
++   }
++
++CFACTIONSEQSTARTTIMES[action_seq_index] = tloc;
++
++Debug("%s job start time set to %s\n",
++  (action_seq != plugin) ? ACTIONSEQTEXT[action_seq_index] : "module",ctime(&tloc));
++}
++
++/*******************************************************************/
++
++time_t GetActionSeqStartTime(enum aseq action_seq)
++
++{ time_t tlast;
++
++int action_seq_index = (int)action_seq;
++if (action_seq_index >= ENUM_ASEQ_SIZE || action_seq_index < 0)
++{
++  char vbuff[CF_BUFSIZE];
++  snprintf(vbuff, CF_BUFSIZE, "Invalid CFACTIONSEQSTARTTIMES index %d!\n", action_seq_index);
++  CfLog(cferror,vbuff,"GetActionSeqStartTime");
++  exit(1);
++}
++
++tlast = CFACTIONSEQSTARTTIMES[action_seq_index];
++if (tlast == 0)
++{
++  tlast = CFSTARTTIME;
++  Debug("%s job start time unavailable, using CFSTARTTIME %s instead\n",
++    (action_seq != plugin) ? ACTIONSEQTEXT[action_seq_index] : "module",CFSTARTTIME);
++}
++
++return tlast;
++}
++
++/*******************************************************************/
++
+ void BuildClassEnvironment()
+ 
+ { struct Item *ip;
+diff --git a/src/prototypes.h b/src/prototypes.h
+index 07d2650..6e01de7 100644
+--- a/src/prototypes.h
++++ b/src/prototypes.h
+@@ -795,6 +795,9 @@ void ChopListSeparator(char *s);
+ 
+ void SetReferenceTime(int setclasses);
+ void SetStartTime(int setclasses);
++time_t GetActionSeqStartTime(enum aseq action_seq);
++void SetActionSeqStartTime(enum aseq action_seq);
++void ResetActionSeqStartTimes(void);
+ 
+ /* modes.c */
+ 
+-- 
+1.7.10.4
+

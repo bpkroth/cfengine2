@@ -1,0 +1,103 @@
+From a2807337e37ecad20f6cf65a4b3bdc0ac1b29651 Mon Sep 17 00:00:00 2001
+From: Brian Kroth <bpkroth@gmail.com>
+Date: Mon, 18 Jul 2016 16:37:45 -0500
+Subject: [PATCH 4/4] Enable TCP_NODELAY to avoid waiting for buffers to fill
+ while exchanging small file stat messages.
+
+Attempting to reduce the amount of time that cfagent/cfservd spend just
+sitting and waiting for buffers to fill in recv() code.
+
+In steady state, there's usually very little full file copying around to
+do.  Instead, cfservd/cfagent mostly just exchange file stat
+information, which is relateively small.
+---
+ src/cf.defs.h |    1 +
+ src/cfservd.c |   12 ++++++++++++
+ src/ip.c      |   15 ++++++++++++++-
+ 3 files changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/src/cf.defs.h b/src/cf.defs.h
+index 688caaa..f7f6013 100644
+--- a/src/cf.defs.h
++++ b/src/cf.defs.h
+@@ -233,6 +233,7 @@ extern int errno;
+ #ifdef __GLIBC__
+ # include <net/route.h>
+ # include <netinet/in.h>
++# include <netinet/tcp.h>
+ #else
+ # include <linux/route.h>
+ # include <linux/in.h>
+diff --git a/src/cfservd.c b/src/cfservd.c
+index c6b4146..a655488 100644
+--- a/src/cfservd.c
++++ b/src/cfservd.c
+@@ -787,6 +787,12 @@ for (ap = response ; ap != NULL; ap=ap->ai_next)
+       exit(1);
+       }
+ 
++   if (setsockopt(sd, SOL_SOCKET,TCP_NODELAY,(char *)&yes,sizeof (int)) == -1)
++      {
++      CfLog(cferror,"Socket options were not accepted","setsockopt");
++      exit(1);
++      }
++
+    if (bind(sd,ap->ai_addr,ap->ai_addrlen) == 0)
+       {
+       Debug("Bound to address %s on %s=%d\n",sockaddr_ntop(ap->ai_addr),CLASSTEXT[VSYSTEMHARDCLASS],VSYSTEMHARDCLASS);
+@@ -850,6 +856,12 @@ if (setsockopt(sd, SOL_SOCKET, SO_REUSEADDR, (char *) &yes, sizeof (int)) == -1)
+    exit (1);
+    }
+ 
++if (setsockopt(sd, SOL_SOCKET, TCP_NODELAY, (char *) &yes, sizeof (int)) == -1)
++   {
++   CfLog(cferror,"Couldn't set socket options","sockopt");
++   exit (1);
++   }
++
+ if (bind(sd,(struct sockaddr *)&sin,sizeof(sin)) == -1) 
+    {
+    CfLog(cferror,"Couldn't bind to socket","bind");
+diff --git a/src/ip.c b/src/ip.c
+index 8484ec4..1c20e40 100644
+--- a/src/ip.c
++++ b/src/ip.c
+@@ -39,6 +39,7 @@
+ int RemoteConnect(char *host,char forceipv4,short oldport, char *newport) 
+ 
+ { int err;
++  int yes=1;
+ 
+ #if defined(HAVE_GETADDRINFO)
+  
+@@ -69,7 +70,13 @@ if (forceipv4 == 'n')
+          CfLog(cfinform,"Couldn't open a socket","socket");      
+          continue;
+          }
+-      
++
++      if (setsockopt(CONN->sd, SOL_SOCKET,TCP_NODELAY,(char *)&yes,sizeof (int)) == -1)
++         {
++         CfLog(cferror,"Socket options were not accepted","setsockopt");
++         exit(1);
++         }
++
+       if (BINDINTERFACE[0] != '\0')
+          {
+          memset(&query2,0,sizeof(struct addrinfo));   
+@@ -166,6 +173,12 @@ if (forceipv4 == 'n')
+       return false;
+       }
+ 
++   if (setsockopt(CONN->sd, SOL_SOCKET,TCP_NODELAY,(char *)&yes,sizeof (int)) == -1)
++      {
++      CfLog(cferror,"Socket options were not accepted","setsockopt");
++      exit(1);
++      }
++
+    if (BINDINTERFACE[0] != '\0')
+       {
+       Verbose("Cannot bind interface with this OS.\n");
+-- 
+1.7.10.4
+
