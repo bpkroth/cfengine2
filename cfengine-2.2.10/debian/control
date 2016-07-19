@@ -5,6 +5,8 @@ Maintainer: Antonio Radici <antonio@debian.org>
 Build-Depends: debhelper (>= 7.0.50), autoconf, automake, autotools-dev,
  bison, dh-autoreconf, flex, libdb-dev, libssl-dev, libtool, perl (>= 5),
  po-debconf, texinfo, quilt
+# TODO: For POSIX ACL support:
+#, libacl1-dev
 Standards-Version: 3.9.3
 Vcs-Browser: http://git.debian.org/?p=collab-maint/cfengine2.git
 Vcs-Git: git://git.debian.org/git/collab-maint/cfengine2.git
