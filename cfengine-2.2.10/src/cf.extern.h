@@ -146,6 +146,7 @@ extern int ERRORCOUNT;
 extern int NUMBEROFEDITS;
 extern time_t CFSTARTTIME;
 extern time_t CFINITSTARTTIME;
+extern time_t CFACTIONSEQSTARTTIMES[];
 extern int CF_TIMEOUT;
 
 extern struct utsname VSYSNAME;

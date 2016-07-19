@@ -795,6 +795,9 @@ void ChopListSeparator(char *s);
 
 void SetReferenceTime(int setclasses);
 void SetStartTime(int setclasses);
+time_t GetActionSeqStartTime(enum aseq action_seq);
+void SetActionSeqStartTime(enum aseq action_seq);
+void ResetActionSeqStartTimes(void);
 
 /* modes.c */
 

@@ -404,7 +404,7 @@ for (lp = VCHLINK; lp != NULL; lp = lp->next)
 
    snprintf(VBUFF,CF_BUFSIZE,"%.*s.%.*s",(CF_BUFSIZE-2)/2,lp->from,(CF_BUFSIZE-2)/2,lp->to); /* Unique ID for copy locking */
 
-   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
+   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,GetActionSeqStartTime(lnks)))
       {
       lp->done = 'y';
       continue;
@@ -519,7 +519,7 @@ for (lp = VLINK; lp != NULL; lp = lp->next)
 
    snprintf(VBUFF,CF_BUFSIZE,"%.*s.%.*s",(CF_BUFSIZE-2)/2,lp->from,(CF_BUFSIZE-2)/2,lp->to); /* Unique ID for copy locking */
    
-   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,CFSTARTTIME))
+   if (!GetLock(ASUniqueName("link"),CanonifyName(VBUFF),lp->ifelapsed,lp->expireafter,VUQNAME,GetActionSeqStartTime(lnks)))
       {
       lp->done = 'y';
       continue;
@@ -611,7 +611,7 @@ void MailCheck()
   char lmailpath[CF_BUFSIZE];
 
 
-if (!GetLock("Mailcheck",CanonifyName(VFSTAB[VSYSTEMHARDCLASS]),0,VEXPIREAFTER,VUQNAME,CFSTARTTIME))
+if (!GetLock("Mailcheck",CanonifyName(VFSTAB[VSYSTEMHARDCLASS]),0,VEXPIREAFTER,VUQNAME,GetActionSeqStartTime(chkmail)))
    {
    return;
    }
@@ -1270,7 +1270,7 @@ for (ptr = VSCRIPT; ptr != NULL; ptr=ptr->next)
    ResetOutputRoute(ptr->log,ptr->inform);
    ExpandVarstring(ptr->name,execstr,NULL);
 
-   if (!GetLock(ASUniqueName("shellcommand"),execstr,ptr->ifelapsed,ptr->expireafter,VUQNAME,CFSTARTTIME))
+   if (!GetLock(ASUniqueName("shellcommand"),execstr,ptr->ifelapsed,ptr->expireafter,VUQNAME,GetActionSeqStartTime(shellcom)))
       {
       ptr->done = 'y';
       continue;
@@ -2585,7 +2585,7 @@ for (svp = VSERVERLIST; svp != NULL; svp=svp->next) /* order servers */
       
       snprintf(vbuff,CF_BUFSIZE,"%.*s.%.*s_%.128s",(CF_BUFSIZE-132)/2,path,(CF_BUFSIZE-132)/2,destination,server); /* Unique ID for copy locking */
       
-      if (!GetLock(ASUniqueName("copy"),CanonifyName(vbuff),ip->ifelapsed,ip->expireafter,VUQNAME,CFSTARTTIME))
+      if (!GetLock(ASUniqueName("copy"),CanonifyName(vbuff),ip->ifelapsed,ip->expireafter,VUQNAME,GetActionSeqStartTime(imag)))
          {
          SILENT = savesilent;
          ResetOutputRoute('d','d');
@@ -2793,7 +2793,7 @@ for (pp = VPROCLIST; pp != NULL; pp=pp->next)
 
    snprintf(VBUFF,CF_BUFSIZE-1,"proc-%s-%s",pp->expr,pp->restart);
    
-   if (!GetLock(ASUniqueName("processes"),CanonifyName(VBUFF),pp->ifelapsed,pp->expireafter,VUQNAME,CFSTARTTIME))
+   if (!GetLock(ASUniqueName("processes"),CanonifyName(VBUFF),pp->ifelapsed,pp->expireafter,VUQNAME,GetActionSeqStartTime(procs)))
       {
       pp->done = 'y';
       continue;
@@ -2848,7 +2848,7 @@ for (ptr = VPKG; ptr != NULL; ptr=ptr->next)
    
    snprintf(lock,CF_BUFSIZE-1,"%s_%d_%s_%d_%s_%s", name, ptr->cmp, ptr->ver ? ptr->ver: "" ,ptr->action, ptr->defines ?: "", ptr->elsedef ?: "");
    
-   if (!GetLock(ASUniqueName("packages"),CanonifyName(lock),ptr->ifelapsed,ptr->expireafter,VUQNAME,CFSTARTTIME))
+   if (!GetLock(ASUniqueName("packages"),CanonifyName(lock),ptr->ifelapsed,ptr->expireafter,VUQNAME,GetActionSeqStartTime(pkgs)))
       {
       ptr->done = 'y';
       continue;
