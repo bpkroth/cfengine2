@@ -52,7 +52,7 @@ ExpandVarstring(ip->server,server,NULL);
  
 if (CONN->sd == CF_NOT_CONNECTED)
    {   
-   Debug("Opening server connnection to %s\n",server);
+   Debug("Opening server connection to %s\n",server);
 
    if (!RemoteConnect(server,ip->forceipv4,SHORT_CFENGINEPORT,STR_CFENGINEPORT))
       {
@@ -855,7 +855,7 @@ void CacheData(struct cfstat *data,struct Image *ip)
 
 if ((sp = (struct cfstat *) malloc(sizeof(struct cfstat))) == NULL)
    {
-   CfLog(cferror,"Memory allocation faliure in CacheData()\n","");
+   CfLog(cferror,"Memory allocation failure in CacheData()\n","");
    return;
    }
 

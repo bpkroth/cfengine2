@@ -30,6 +30,8 @@
 # line options.
 # 
 
+use Getopt::Std;
+
 &parse_cmd_line;
 &format_file;
 
@@ -105,8 +107,7 @@ sub parse_cmd_line {
 	     "    -e end-marker         markup for end of code (default \\end{verbatim})\n" .
 	     "Known languages are \"LaTeX\" (default), \"HTML\" and \"texinfo\".\n";
 
-    require "getopts.pl";
-    &Getopts('c:l:s:e:') || die $usage;
+    getopts('c:l:s:e:') || die $usage;
 
     if (defined($opt_c)) {
 	$comment_marker = $opt_c;

@@ -885,7 +885,6 @@ for (i = 0; i < CF_OBSERVABLES; i++)
          {
          CfLog(cfloginform,OUTPUT,"");
          }
-      Verbose(OUTPUT);
       
       snprintf(OUTPUT,CF_BUFSIZE,"LDT_BUF (%s): Rot ",OBS[i][0]);
 
@@ -917,7 +916,6 @@ for (i = 0; i < CF_OBSERVABLES; i++)
          {
          CfLog(cfloginform,OUTPUT,"");
          }
-      Verbose(OUTPUT);
 
       if (THIS[i] > av.Q[i].expect)
          {

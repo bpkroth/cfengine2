@@ -128,10 +128,10 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "CFETOOLUPDATE 1"
-.TH CFETOOLUPDATE 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+.IX Title "CFETOOLUPDATE 8"
+.TH CFETOOLUPDATE 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
 .SH "NAME"
-cfetool update \- Update the database with a new value
+cfetoolupdate \- Update the database with a new value
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 \&\fBcfetool\fR \fBupdate\fR \fIname\fR
@@ -149,7 +149,7 @@ cfetool update \- Update the database with a new value
 .IX Header "DESCRIPTION"
 Takes a new value and uses it to update the database specified by \fIname\fR,
 located at the path specified by the \fB\-p\fR argument, or the current working
-directory if the \fB\-p\fR argument is ommitted. The value will be associated with
+directory if the \fB\-p\fR argument is omitted. The value will be associated with
 the current time, unless the \fB\-t\fR option is given. In order for cfetool to
 function properly, this command should be issued at least once during each
 interval specified by the \fB\-\-step\fR option of \f(CW\*(C`cfetool create\*(C'\fR.
@@ -208,31 +208,31 @@ as compared to an average of equivalent earlier times, as specified below:
 .Vb 27
 \& code    high|low|normal   meaning
 \& -------------------------------------------------------------
-\&  -2     -                 no sigma variation
+\&  \-2     -                 no sigma variation
 \& -------------------------------------------------------------
-\&  -4     low               within noise threshold, and within
-\&  -5     normal              2 standard deviations from
-\&  -6     high                expected value
+\&  \-4     low               within noise threshold, and within
+\&  \-5     normal              2 standard deviations from
+\&  \-6     high                expected value
 \& -------------------------------------------------------------
-\& -14     low               microanomaly: within noise
-\& -15     normal              threshold, but 2 or more standard
-\& -16     high                deviations from expected value
+\& \-14     low               microanomaly: within noise
+\& \-15     normal              threshold, but 2 or more standard
+\& \-16     high                deviations from expected value
 \& -------------------------------------------------------------
-\& -24     low               normal; within 1 standard deviation
-\& -25     normal              from the expected value
-\& -26     high                
+\& \-24     low               normal; within 1 standard deviation
+\& \-25     normal              from the expected value
+\& \-26     high                
 \& -------------------------------------------------------------
-\& -34     low               dev1; more than 1 standard 
-\& -35     normal              deviation from the expected
-\& -36     high                value
+\& \-34     low               dev1; more than 1 standard 
+\& \-35     normal              deviation from the expected
+\& \-36     high                value
 \& ------------------------------------------------------------
-\& -44     low               dev2; more than 2 standard
-\& -45     normal              deviations from the expected
-\& -46     high                value
+\& \-44     low               dev2; more than 2 standard
+\& \-45     normal              deviations from the expected
+\& \-46     high                value
 \& -------------------------------------------------------------
-\& -54     low               anomaly; more than 3 standard
-\& -55     normal              deviations from the expected
-\& -56     high                value
+\& \-54     low               anomaly; more than 3 standard
+\& \-55     normal              deviations from the expected
+\& \-56     high                value
 .Ve
 .PP
 Where \*(L"low\*(R" indicates that the current value is below both the expected value
@@ -247,7 +247,7 @@ standard output stream, as described above.
 .SH "EXAMPLE"
 .IX Header "EXAMPLE"
 .Vb 2
-\&  % cfetool update temperature --path /my/path --value 14.5 --histograms
+\&  % cfetool update temperature \-\-path /my/path \-\-value 14.5 \-\-histograms
 \&  yrly=0,wkly=-6,dly=0
 .Ve
 .PP

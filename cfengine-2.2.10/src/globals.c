@@ -517,7 +517,7 @@ char *OBS[CF_OBSERVABLES][2] =
  PRIVATE char *ACTIONTEXT[] =
       {
       "",
-      "Control Defintions:",
+      "Control Definitions:",
       "Alerts:",
       "Groups:",
       "File Imaging:",

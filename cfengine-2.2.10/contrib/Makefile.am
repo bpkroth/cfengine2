@@ -2,7 +2,7 @@ s1 = cfdoc
 s2 = cfengine.el
 
 sbin_SCRIPTS = $(s1)
-pkgdata_SCRIPTS = $(s2)
+pkgdata_DATA = $(s2)
 
 EXTRA_DIST = README $(s1) $(s2)
 

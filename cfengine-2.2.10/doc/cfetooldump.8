@@ -128,10 +128,10 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "CFETOOLDUMP 1"
-.TH CFETOOLDUMP 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+.IX Title "CFETOOLDUMP 8"
+.TH CFETOOLDUMP 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
 .SH "NAME"
-cfetool dump \- dump the contents of a database in XML format
+cfetooldump \- dump the contents of a database in XML format
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 \&\fBcfetool\fR \fBdump\fR \fIname\fR
@@ -148,7 +148,7 @@ Prints the contents of the specified database in \s-1XML\s0 format, with comment
 for human readability. This format can be read by \fBcfetool import\fR.
 .PP
 The \fB\-d\fR, \fB\-w\fR, and \fB\-y\fR options specify which databases to include in the
-dump, and may be combined. If they are all ommitted, the default is to only
+dump, and may be combined. If they are all omitted, the default is to only
 dump the weekly database.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
@@ -179,7 +179,7 @@ Print a short help message and then exit.
 .SH "EXAMPLE"
 .IX Header "EXAMPLE"
 .Vb 1
-\&  % cfetool dump temperature --path /my/path -f temperature.xml
+\&  % cfetool dump temperature \-\-path /my/path \-f temperature.xml
 .Ve
 .PP
 Prints the following to the file \fBtemperature.xml\fR:

@@ -6561,7 +6561,7 @@ void InstallAuthPath(char *path,char *hostname,char *classes,struct Auth **list,
 if (!IsDefinedClass(classes))
    {
    Debug1("Not installing Auth path, no match\n");
-   InitializeAction();
+//   InitializeAction();
    return;
    }
 

@@ -1,0 +1,24 @@
+.TH cfdoc 8 "2009-02-15"
+.SH "NAME"
+cfdoc \- Simple utility to document a cfengine configuration file
+.SH "SYNOPSIS"
+\&\fBcfdoc\fR
+\&[\fB\-c\fR\ \fIcomment_marker\fR]
+[\fB\-l\fR\ \fIlanguage\fR]
+[\fB\-s\fR\ \fIstart-marker\fR]
+[\fB\-e\fR\ \fIend-marker\fR]
+<file
+.SH "DESCRIPTION"
+The purpose of \fBcfdoc\fR(8) is to document a cfengine configuration file 
+(or other configuration file that uses '#' in the first line to indicate 
+comments).
+.SH "OPTIONS"
+.IP "\fB\-c comment_marker\fR" 4
+String indicating comment line (default is '#')
+.IP "\fB\-l language\fR" 4
+Markup language to use (default is LaTeX); known languages are "LaTeX", "HTML" and
+"texinfo"
+.IP "\fB\-s start_marker\fR" 4
+Markup for start of code (default \\begin{verbatim})
+.IP "\fB\-e end_marker\fR" 4
+Markup for end of code (default \\end{verbatim})

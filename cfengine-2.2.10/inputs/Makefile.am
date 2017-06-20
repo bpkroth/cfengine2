@@ -1,4 +1,4 @@
-pkgdata_SCRIPTS =							\
+pkgdata_DATA =							\
 	cf.chflags.example						\
 	cf.freebsd.example						\
 	cf.ftp.example							\
@@ -6,7 +6,6 @@ pkgdata_SCRIPTS =							\
 	cf.linux.example						\
 	cf.main.example							\
 	cf.motd.example							\
-	cf.preconf.example						\
 	cf.services.example						\
 	cf.site.example							\
 	cf.solaris.example						\
@@ -19,7 +18,10 @@ pkgdata_SCRIPTS =							\
 	cfrc.example							\
 	cfrun.hosts.example
 
-EXTRA_DIST = $(pkgdata_SCRIPTS)
+pkgdata_SCRIPTS =                                                       \
+	cf.preconf.example						
+
+EXTRA_DIST = $(pkgdata_DATA) $(pkgdata_SCRIPTS)
 
 #
 # Some basic clean ups

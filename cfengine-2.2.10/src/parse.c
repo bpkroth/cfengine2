@@ -1161,7 +1161,7 @@ result[0] = '\0';
  
 if (MINUSF && (*filename == '.' || *filename == '/'))
    {
-   Verbose("Manually overidden relative path (%s)\n",filename);
+   Verbose("Manually overridden relative path (%s)\n",filename);
    strncpy(result,filename,CF_BUFSIZE-1);
    return result;
    }

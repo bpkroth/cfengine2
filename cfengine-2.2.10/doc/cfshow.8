@@ -3,7 +3,7 @@
 cfshow \- Dump cfengine databases
 .SH SYNOPSIS
 
-/usr/local/sbin/cfshow [options] 
+/usr/sbin/cfshow [options] 
 
 .SH DESCRIPTION
 .B cfengine
@@ -21,13 +21,13 @@ provided for easy integration with reporting.
 
 .SH EXAMPLES
 
-cfshow --locks
-cfshow --last-seen
-cfshow --checksum
-cfshow --active
-cfshow --audit
-cfshow --classes
-cfshow --regex
+cfshow \-\-locks
+cfshow \-\-last-seen
+cfshow \-\-checksum
+cfshow \-\-active
+cfshow \-\-audit
+cfshow \-\-classes
+cfshow \-\-regex
 
 .PP
 These show the named databases.
@@ -36,22 +36,22 @@ These show the named databases.
 
 Here are all of the options supported:
 
---help                    (-h)
---debug                   (-d)
---verbose                 (-v)
---locks                   (-l)
---last-seen               (-s)
---performance             (-p)
---checksum                (-c)
---classes                 (-C)
---filename                (-f)
---regex                   (-r)
---active                  (-a)
---version                 (-V)
---html                    (-H)
---xml                     (-X)
---purge                   (-P)
---audit                   (-A)
+\-\-help                    (\-h)
+\-\-debug                   (\-d)
+\-\-verbose                 (\-v)
+\-\-locks                   (\-l)
+\-\-last-seen               (\-s)
+\-\-performance             (\-p)
+\-\-checksum                (\-c)
+\-\-classes                 (\-C)
+\-\-filename                (\-f)
+\-\-regex                   (\-r)
+\-\-active                  (\-a)
+\-\-version                 (\-V)
+\-\-html                    (\-H)
+\-\-xml                     (\-X)
+\-\-purge                   (\-P)
+\-\-audit                   (\-A)
 
 .SH FILES
 cfshow reads cfengine internal information that is normally stored in the Work Directory /var/cfengine.

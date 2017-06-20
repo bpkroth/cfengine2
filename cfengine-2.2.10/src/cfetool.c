@@ -3172,7 +3172,7 @@ if ((errno = db_create(&dbp, NULL, 0)) != 0)
    {
    snprintf(OUTPUT, CF_BUFSIZE, "Couldn't create database handle\n");
    fprintf(stderr, "db_create: %s\n", strerror(errno));
-   fprintf(stderr, OUTPUT);
+   fputs(stderr, OUTPUT);
    return -1;
   }
 
@@ -3184,7 +3184,7 @@ if ((errno = (dbp->open)(dbp, NULL, AVDB, NULL, DB_BTREE, flags, 0644)) != 0)
    {
    snprintf(OUTPUT, CF_BUFSIZE, "Couldn't open average database %s\n", AVDB);
    fprintf(stderr, "db_open: %s\n", strerror(errno));
-   fprintf(stderr, OUTPUT);
+   fputs(stderr, OUTPUT);
    return -1;
    }
 

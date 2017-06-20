@@ -128,10 +128,10 @@
 .rm #[ #] #H #V #F C
 .\" ========================================================================
 .\"
-.IX Title "CFETOOLCREATE 1"
-.TH CFETOOLCREATE 1 "2004-09-22" "perl v5.8.4" "User Contributed Perl Documentation"
+.IX Title "CFETOOLCREATE 8"
+.TH CFETOOLCREATE 8 "2004-09-22" "perl v5.8.4" "User Contributed Perl Documentation"
 .SH "NAME"
-cfetool create \- Set up a new Database
+cfetoolcreate \- Set up a new Database
 .SH "SYNOPSIS"
 .IX Header "SYNOPSIS"
 \&\fBcfetool\fR \fBcreate\fR \fIname\fR
@@ -153,7 +153,7 @@ created as a subdirectory of the path given. Otherwise, it will be a
 subdirectory of the current working directory.
 .PP
 The \fB\-d\fR, \fB\-w\fR, and \fB\-y\fR options specify the period over which the data will
-span, and may be combined to create multiple databases. If they are all ommitted,
+span, and may be combined to create multiple databases. If they are all omitted,
 the default is weekly.
 .SH "OPTIONS"
 .IX Header "OPTIONS"
@@ -204,7 +204,7 @@ Prints a short help message and then exits.
 .SH "EXAMPLE"
 .IX Header "EXAMPLE"
 .Vb 1
-\&  % cfetool create temperature --path /my/path --histograms --step 10
+\&  % cfetool create temperature \-\-path /my/path \-\-histograms \-\-step 10
 .Ve
 .PP
 Creates an empty database and histogram file in \fB/my/path/temperature/\fR,

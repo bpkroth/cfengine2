@@ -199,7 +199,7 @@ while ((c=getopt_long(argc,argv,"AChdvaVlr:f:scpPXH",CFSHOPTIONS,&optindex)) != 
          break;
 
       case 'V': printf("GNU %s-%s db tool\n%s\n",PACKAGE,VERSION,COPYRIGHT);
-          printf("This program is covered by the GNU Public License and may be\n");
+          printf("This program is covered by the GNU General Public License and may be\n");
           printf("copied free of charge. No warrenty is implied.\n\n");
           exit(0);
           break;
@@ -794,7 +794,7 @@ for (i = 0; array[i].q > 0; i++)
       {
       printf("%s",CFH[cfx_entry][cfb]);
       printf("%s%s%s",CFH[cfx_event][cfb],array[i].name,CFH[cfx_event][cfe]);
-      printf("%s last occured at %s%s",CFH[cfx_date][cfb],array[i].date,CFH[cfx_date][cfe]);
+      printf("%s last occurred at %s%s",CFH[cfx_date][cfb],array[i].date,CFH[cfx_date][cfe]);
       printf("%s Probability %.4f %s",CFH[cfx_av][cfb],array[i].q,CFH[cfx_av][cfe]);
       printf("%s &plusmn; %.4f %s",CFH[cfx_dev][cfb],sqrt(array[i].d),CFH[cfx_dev][cfe]);
       printf("%s",CFH[cfx_entry][cfe]);

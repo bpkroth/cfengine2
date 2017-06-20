@@ -3,7 +3,7 @@
 cfrun \- Execute remote cfagents
 .SH SYNOPSIS
 
-/usr/local/sbin/cfrun [options] 
+/usr/sbin/cfrun [options] 
 
 .SH DESCRIPTION
 .B cfengine
@@ -26,15 +26,15 @@ classes or flags to the remote agent.
 
 .SH EXAMPLES
 
-cfrun specialhost1 specialhost2 -- --verbose -- \!solaris
+cfrun specialhost1 specialhost2 \-\- \-\-verbose -- \!solaris
 
 .PP
 In this example, we contact hosts specialhost1 specialhost2 by name, and ask them
-to execute cfagent with the --verbose flag, if the class solaris is not
+to execute cfagent with the \-\-verbose flag, if the class solaris is not
 defined.
 .PP
 .PP
-cfrun specialhost1 --verbose  --  -- \!solaris
+cfrun specialhost1 \-\-verbose  \-\-  \-\- \!solaris
 
 .PP
 In this example the verbose flag is sent to cfrun rather than to the remote agent.

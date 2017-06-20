@@ -245,7 +245,7 @@ if (stat(startpath,&statbuf) == -1)
       case compress:
           break;
           
-      default:      FatalError("cfengine: Internal sofware error: Checkfiles(), bad action\n");
+      default:      FatalError("cfengine: Internal software error: Checkfiles(), bad action\n");
       }
    }
 else
