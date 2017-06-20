@@ -1,3 +1,9 @@
+cfengine2 (2.2.10-7.1) unstable; urgency=medium
+
+  * Add net-tools package so cfenvd can run netstat and ifconfig.
+
+ -- Brian Kroth <bpkroth@gmail.com>  Tue, 20 Jun 2017 13:52:41 -0500
+
 cfengine2 (2.2.10-7) unstable; urgency=medium
 
   [ Petter Reinholdtsen ]
