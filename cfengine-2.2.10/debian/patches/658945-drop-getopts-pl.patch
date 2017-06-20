@@ -1,0 +1,26 @@
+getopts.pl has been deprecated in perl 5.14 so this patch replaces it with a
+more standard Getopt::Std.
+
+Index: cfengine2/contrib/cfdoc
+===================================================================
+--- cfengine2.orig/contrib/cfdoc	2012-03-20 21:29:35.000000000 +0000
++++ cfengine2/contrib/cfdoc	2012-03-20 21:32:05.000000000 +0000
+@@ -30,6 +30,8 @@
+ # line options.
+ # 
+ 
++use Getopt::Std;
++
+ &parse_cmd_line;
+ &format_file;
+ 
+@@ -105,8 +107,7 @@
+ 	     "    -e end-marker         markup for end of code (default \\end{verbatim})\n" .
+ 	     "Known languages are \"LaTeX\" (default), \"HTML\" and \"texinfo\".\n";
+ 
+-    require "getopts.pl";
+-    &Getopts('c:l:s:e:') || die $usage;
++    getopts('c:l:s:e:') || die $usage;
+ 
+     if (defined($opt_c)) {
+ 	$comment_marker = $opt_c;

@@ -1,0 +1,87 @@
+# Czech translation of cfengine2 templates
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: cfengine2 2.1.13-1\n"
+"Report-Msgid-Bugs-To: cfengine2@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-14 19:14+0000\n"
+"PO-Revision-Date: 2005-04-16 13:40+0200\n"
+"Last-Translator: Martin Sin <martin.sin@seznam.cz>\n"
+"Language-Team: LCzech <debian-l10n-czech@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid "Start cfexecd at boot-time?"
+msgstr "Spustit cfexecd pøi startu?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"cfexecd is a scheduler that periodically runs cfagent, the program that "
+"actually does the work."
+msgstr ""
+"cfexecd je plánovaè, který pravidelnì spou¹tí cfagent, program vykonávající "
+"vlastní práci."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:1001
+msgid ""
+"If you invoke cfagent by hand or choose to run it from cron instead, you may "
+"not require this."
+msgstr ""
+"Jestli¾e vyvoláte cfagent ruènì nebo ho spustíte pomocí cronu, mo¾ná to "
+"nebudete potøebovat."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "Start cfservd at boot-time?"
+msgstr "Spustit cfservd pøi spu¹tìní systému?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid "cfservd manages file-serving to remote cfagent processes."
+msgstr "cfservd øídí souborovou slu¾bu pomocí vzdálených procesù cfagent."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:2001
+msgid ""
+"It also provides a facility for remote hosts (after authenticating) to ask "
+"cfservd to run cfagent."
+msgstr ""
+"Má také výhody pro vzdálené pøístupy (po ovìøení) - cfservd se zeptá zda "
+"spustit cfagent."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid "Start cfenvd at boot-time?"
+msgstr "Spustit cfenvd pøi spu¹tìní systému?"
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"cfenvd monitors the system environment (disk usage, run queue length etc.) "
+"and notes the mean and standard deviation for each."
+msgstr ""
+"cfenvd monitoruje systémové prostøedí (vyu¾ití disku, délku front atd.) a "
+"zaznamenává prùmìrné a standardní odchylky."
+
+#. Type: boolean
+#. Description
+#: ../cfengine2.templates:3001
+msgid ""
+"Information gathered here is easily available to cfagent, and can be output "
+"using cfenvgraph."
+msgstr ""
+"Získané informace jsou snadno pøístupné cfagentu a mohou být vykresleny "
+"pomocí cfenvgraph."

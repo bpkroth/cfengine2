@@ -1,0 +1,2 @@
+etc/cfengine var/lib/cfengine2/inputs
+usr/sbin var/lib/cfengine2/bin

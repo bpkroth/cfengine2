@@ -1,0 +1,46 @@
+replacing pkgdata_SCRIPTS with pkgdata_DATA, so that the executable permission
+won't be set on those example files
+
+diff --git a/contrib/Makefile.am b/contrib/Makefile.am
+index 012ccdf..dc3eff1 100644
+--- a/contrib/Makefile.am
++++ b/contrib/Makefile.am
+@@ -2,7 +2,7 @@ s1 = cfdoc
+ s2 = cfengine.el
+ 
+ sbin_SCRIPTS = $(s1)
+-pkgdata_SCRIPTS = $(s2)
++pkgdata_DATA = $(s2)
+ 
+ EXTRA_DIST = README $(s1) $(s2)
+ 
+diff --git a/inputs/Makefile.am b/inputs/Makefile.am
+index 096f46f..16234c4 100644
+--- a/inputs/Makefile.am
++++ b/inputs/Makefile.am
+@@ -1,4 +1,4 @@
+-pkgdata_SCRIPTS =							\
++pkgdata_DATA =							\
+ 	cf.chflags.example						\
+ 	cf.freebsd.example						\
+ 	cf.ftp.example							\
+@@ -6,7 +6,6 @@ pkgdata_SCRIPTS =							\
+ 	cf.linux.example						\
+ 	cf.main.example							\
+ 	cf.motd.example							\
+-	cf.preconf.example						\
+ 	cf.services.example						\
+ 	cf.site.example							\
+ 	cf.solaris.example						\
+@@ -19,7 +18,10 @@ pkgdata_SCRIPTS =							\
+ 	cfrc.example							\
+ 	cfrun.hosts.example
+ 
+-EXTRA_DIST = $(pkgdata_SCRIPTS)
++pkgdata_SCRIPTS =                                                       \
++	cf.preconf.example						
++
++EXTRA_DIST = $(pkgdata_DATA) $(pkgdata_SCRIPTS)
+ 
+ #
+ # Some basic clean ups

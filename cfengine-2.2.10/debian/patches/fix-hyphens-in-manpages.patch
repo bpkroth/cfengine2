@@ -1,0 +1,309 @@
+fix some errors found by the groff parsers, basically an hyphen is used rather
+than a minus (and viceversa, if needed)
+
+diff --git a/doc/cfetoolcheck.8 b/doc/cfetoolcheck.8
+index 4ef6e0c..2fe7aa4 100644
+--- a/doc/cfetoolcheck.8
++++ b/doc/cfetoolcheck.8
+@@ -208,31 +208,31 @@ as compared to an average of equivalent earlier times, as specified below:
+ .Vb 27
+ \& code    high|low|normal   meaning
+ \& -------------------------------------------------------------
+-\&  -2     -                 no sigma variation
++\&  \-2     -                 no sigma variation
+ \& -------------------------------------------------------------
+-\&  -4     low               within noise threshold, and within
+-\&  -5     normal              2 standard deviations from
+-\&  -6     high                expected value
++\&  \-4     low               within noise threshold, and within
++\&  \-5     normal              2 standard deviations from
++\&  \-6     high                expected value
+ \& -------------------------------------------------------------
+-\& -14     low               microanomaly: within noise
+-\& -15     normal              threshold, but 2 or more standard
+-\& -16     high                deviations from expected value
++\& \-14     low               microanomaly: within noise
++\& \-15     normal              threshold, but 2 or more standard
++\& \-16     high                deviations from expected value
+ \& -------------------------------------------------------------
+-\& -24     low               normal; within 1 standard deviation
+-\& -25     normal              from the expected value
+-\& -26     high                
++\& \-24     low               normal; within 1 standard deviation
++\& \-25     normal              from the expected value
++\& \-26     high                
+ \& -------------------------------------------------------------
+-\& -34     low               dev1; more than 1 standard 
+-\& -35     normal              deviation from the expected
+-\& -36     high                value
++\& \-34     low               dev1; more than 1 standard 
++\& \-35     normal              deviation from the expected
++\& \-36     high                value
+ \& ------------------------------------------------------------
+-\& -44     low               dev2; more than 2 standard
+-\& -45     normal              deviations from the expected
+-\& -46     high                value
++\& \-44     low               dev2; more than 2 standard
++\& \-45     normal              deviations from the expected
++\& \-46     high                value
+ \& -------------------------------------------------------------
+-\& -54     low               anomaly; more than 3 standard
+-\& -55     normal              deviations from the expected
+-\& -56     high                value
++\& \-54     low               anomaly; more than 3 standard
++\& \-55     normal              deviations from the expected
++\& \-56     high                value
+ .Ve
+ .PP
+ Where \*(L"low\*(R" indicates that the current value is below both the expected value
+@@ -247,7 +247,7 @@ standard output stream, as described above.
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ .Vb 2
+-\&  % cfetool check temperature --path /my/path --value 20 --histograms
++\&  % cfetool check temperature \-\-path /my/path \-\-value 20 \-\-histograms
+ \&  yrly=0,bkt=0;wkly=-6,bkt=51;dly=0,bkt=0
+ .Ve
+ .PP
+diff --git a/doc/cfetoolcreate.8 b/doc/cfetoolcreate.8
+index e212137..4a1ffc5 100644
+--- a/doc/cfetoolcreate.8
++++ b/doc/cfetoolcreate.8
+@@ -204,7 +204,7 @@ Prints a short help message and then exits.
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ .Vb 1
+-\&  % cfetool create temperature --path /my/path --histograms --step 10
++\&  % cfetool create temperature \-\-path /my/path \-\-histograms \-\-step 10
+ .Ve
+ .PP
+ Creates an empty database and histogram file in \fB/my/path/temperature/\fR,
+diff --git a/doc/cfetooldump.8 b/doc/cfetooldump.8
+index 8d5c734..e9a9142 100644
+--- a/doc/cfetooldump.8
++++ b/doc/cfetooldump.8
+@@ -179,7 +179,7 @@ Print a short help message and then exit.
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ .Vb 1
+-\&  % cfetool dump temperature --path /my/path -f temperature.xml
++\&  % cfetool dump temperature \-\-path /my/path \-f temperature.xml
+ .Ve
+ .PP
+ Prints the following to the file \fBtemperature.xml\fR:
+diff --git a/doc/cfetoolgraph.8 b/doc/cfetoolgraph.8
+index ada655c..fde4bd7 100644
+--- a/doc/cfetoolgraph.8
++++ b/doc/cfetoolgraph.8
+@@ -188,7 +188,7 @@ Prints a short help message and then exits.
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ .Vb 1
+-\&  % cfetoolgraph temperature --path /my/path --resolution
++\&  % cfetoolgraph temperature \-\-path /my/path \-\-resolution
+ .Ve
+ .PP
+ Create graph files of the weekly database in high resolution in the
+diff --git a/doc/cfetoolimport.8 b/doc/cfetoolimport.8
+index 7af8869..ffc1df9 100644
+--- a/doc/cfetoolimport.8
++++ b/doc/cfetoolimport.8
+@@ -177,7 +177,7 @@ Print a short help message and then exit.
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ .Vb 1
+-\&  % cfetool import temperature_copy --path /my/path --file ./temperature.xml
++\&  % cfetool import temperature_copy \-\-path /my/path \-\-file ./temperature.xml
+ .Ve
+ .PP
+ Create a new weekly database, \f(CW\*(C`temperature_copy\*(C'\fR, in the \f(CW\*(C`/my/path\*(C'\fR
+diff --git a/doc/cfetoolinfo.8 b/doc/cfetoolinfo.8
+index 121fb9a..658a962 100644
+--- a/doc/cfetoolinfo.8
++++ b/doc/cfetoolinfo.8
+@@ -171,7 +171,7 @@ Prints a short help message and then exits.
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ .Vb 1
+-\&  % cfetool info temperature --path /my/path
++\&  % cfetool info temperature \-\-path /my/path
+ .Ve
+ .PP
+ .Vb 7
+diff --git a/doc/cfetoolupdate.8 b/doc/cfetoolupdate.8
+index 2f41b1e..80c486e 100644
+--- a/doc/cfetoolupdate.8
++++ b/doc/cfetoolupdate.8
+@@ -208,31 +208,31 @@ as compared to an average of equivalent earlier times, as specified below:
+ .Vb 27
+ \& code    high|low|normal   meaning
+ \& -------------------------------------------------------------
+-\&  -2     -                 no sigma variation
++\&  \-2     -                 no sigma variation
+ \& -------------------------------------------------------------
+-\&  -4     low               within noise threshold, and within
+-\&  -5     normal              2 standard deviations from
+-\&  -6     high                expected value
++\&  \-4     low               within noise threshold, and within
++\&  \-5     normal              2 standard deviations from
++\&  \-6     high                expected value
+ \& -------------------------------------------------------------
+-\& -14     low               microanomaly: within noise
+-\& -15     normal              threshold, but 2 or more standard
+-\& -16     high                deviations from expected value
++\& \-14     low               microanomaly: within noise
++\& \-15     normal              threshold, but 2 or more standard
++\& \-16     high                deviations from expected value
+ \& -------------------------------------------------------------
+-\& -24     low               normal; within 1 standard deviation
+-\& -25     normal              from the expected value
+-\& -26     high                
++\& \-24     low               normal; within 1 standard deviation
++\& \-25     normal              from the expected value
++\& \-26     high                
+ \& -------------------------------------------------------------
+-\& -34     low               dev1; more than 1 standard 
+-\& -35     normal              deviation from the expected
+-\& -36     high                value
++\& \-34     low               dev1; more than 1 standard 
++\& \-35     normal              deviation from the expected
++\& \-36     high                value
+ \& ------------------------------------------------------------
+-\& -44     low               dev2; more than 2 standard
+-\& -45     normal              deviations from the expected
+-\& -46     high                value
++\& \-44     low               dev2; more than 2 standard
++\& \-45     normal              deviations from the expected
++\& \-46     high                value
+ \& -------------------------------------------------------------
+-\& -54     low               anomaly; more than 3 standard
+-\& -55     normal              deviations from the expected
+-\& -56     high                value
++\& \-54     low               anomaly; more than 3 standard
++\& \-55     normal              deviations from the expected
++\& \-56     high                value
+ .Ve
+ .PP
+ Where \*(L"low\*(R" indicates that the current value is below both the expected value
+@@ -247,7 +247,7 @@ standard output stream, as described above.
+ .SH "EXAMPLE"
+ .IX Header "EXAMPLE"
+ .Vb 2
+-\&  % cfetool update temperature --path /my/path --value 14.5 --histograms
++\&  % cfetool update temperature \-\-path /my/path \-\-value 14.5 \-\-histograms
+ \&  yrly=0,wkly=-6,dly=0
+ .Ve
+ .PP
+diff --git a/doc/cfexecd.8 b/doc/cfexecd.8
+index a4e2b5b..6a78cba 100644
+--- a/doc/cfexecd.8
++++ b/doc/cfexecd.8
+@@ -13,7 +13,7 @@ execution of cfagent. It may be used to capture cfagent output
+ and send it as mail when run cron cron, e.g.
+ 
+ .PP
+-0,30 * * * * /var/cfengine/bin/cfexecd -F
++0,30 * * * * /var/cfengine/bin/cfexecd \-F
+ 
+ .PP
+ or it can be run in daemon mode with scheduling parameters
+diff --git a/doc/cfrun.8 b/doc/cfrun.8
+index 4341fa6..795f8d1 100644
+--- a/doc/cfrun.8
++++ b/doc/cfrun.8
+@@ -26,15 +26,15 @@ classes or flags to the remote agent.
+ 
+ .SH EXAMPLES
+ 
+-cfrun specialhost1 specialhost2 -- --verbose -- \!solaris
++cfrun specialhost1 specialhost2 \-\- \-\-verbose -- \!solaris
+ 
+ .PP
+ In this example, we contact hosts specialhost1 specialhost2 by name, and ask them
+-to execute cfagent with the --verbose flag, if the class solaris is not
++to execute cfagent with the \-\-verbose flag, if the class solaris is not
+ defined.
+ .PP
+ .PP
+-cfrun specialhost1 --verbose  --  -- \!solaris
++cfrun specialhost1 \-\-verbose  \-\-  \-\- \!solaris
+ 
+ .PP
+ In this example the verbose flag is sent to cfrun rather than to the remote agent.
+diff --git a/doc/cfservd.8 b/doc/cfservd.8
+index 27ba58c..614e37b 100644
+--- a/doc/cfservd.8
++++ b/doc/cfservd.8
+@@ -14,7 +14,7 @@ IP address.
+ .PP
+ The daemon looks for a configuration file cfservd.conf by default.
+ Cfservd gives little information when it fails to serve. This is by design.
+-More information can be obtained using the debug option -d2 on both
++More information can be obtained using the debug option \-d2 on both
+ client and server ends.
+ 
+ .IP "-d (--debug)"
+diff --git a/doc/cfshow.8 b/doc/cfshow.8
+index fd65d96..a5132bc 100644
+--- a/doc/cfshow.8
++++ b/doc/cfshow.8
+@@ -21,13 +21,13 @@ provided for easy integration with reporting.
+ 
+ .SH EXAMPLES
+ 
+-cfshow --locks
+-cfshow --last-seen
+-cfshow --checksum
+-cfshow --active
+-cfshow --audit
+-cfshow --classes
+-cfshow --regex
++cfshow \-\-locks
++cfshow \-\-last-seen
++cfshow \-\-checksum
++cfshow \-\-active
++cfshow \-\-audit
++cfshow \-\-classes
++cfshow \-\-regex
+ 
+ .PP
+ These show the named databases.
+@@ -36,22 +36,22 @@ These show the named databases.
+ 
+ Here are all of the options supported:
+ 
+---help                    (-h)
+---debug                   (-d)
+---verbose                 (-v)
+---locks                   (-l)
+---last-seen               (-s)
+---performance             (-p)
+---checksum                (-c)
+---classes                 (-C)
+---filename                (-f)
+---regex                   (-r)
+---active                  (-a)
+---version                 (-V)
+---html                    (-H)
+---xml                     (-X)
+---purge                   (-P)
+---audit                   (-A)
++\-\-help                    (\-h)
++\-\-debug                   (\-d)
++\-\-verbose                 (\-v)
++\-\-locks                   (\-l)
++\-\-last-seen               (\-s)
++\-\-performance             (\-p)
++\-\-checksum                (\-c)
++\-\-classes                 (\-C)
++\-\-filename                (\-f)
++\-\-regex                   (\-r)
++\-\-active                  (\-a)
++\-\-version                 (\-V)
++\-\-html                    (\-H)
++\-\-xml                     (\-X)
++\-\-purge                   (\-P)
++\-\-audit                   (\-A)
+ 
+ .SH FILES
+ cfshow reads cfengine internal information that is normally stored in the Work Directory /var/cfengine.

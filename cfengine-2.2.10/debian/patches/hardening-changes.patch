@@ -1,0 +1,40 @@
+Remove format string bugs detected by the gcc hardening flags.
+
+--- a/src/env_monitor.c
++++ b/src/env_monitor.c
+@@ -885,7 +885,6 @@
+          {
+          CfLog(cfloginform,OUTPUT,"");
+          }
+-      Verbose(OUTPUT);
+       
+       snprintf(OUTPUT,CF_BUFSIZE,"LDT_BUF (%s): Rot ",OBS[i][0]);
+ 
+@@ -917,7 +916,6 @@
+          {
+          CfLog(cfloginform,OUTPUT,"");
+          }
+-      Verbose(OUTPUT);
+ 
+       if (THIS[i] > av.Q[i].expect)
+          {
+--- a/src/cfetool.c
++++ b/src/cfetool.c
+@@ -3172,7 +3172,7 @@
+    {
+    snprintf(OUTPUT, CF_BUFSIZE, "Couldn't create database handle\n");
+    fprintf(stderr, "db_create: %s\n", strerror(errno));
+-   fprintf(stderr, OUTPUT);
++   fputs(stderr, OUTPUT);
+    return -1;
+   }
+ 
+@@ -3184,7 +3184,7 @@
+    {
+    snprintf(OUTPUT, CF_BUFSIZE, "Couldn't open average database %s\n", AVDB);
+    fprintf(stderr, "db_open: %s\n", strerror(errno));
+-   fprintf(stderr, OUTPUT);
++   fputs(stderr, OUTPUT);
+    return -1;
+    }
+ 

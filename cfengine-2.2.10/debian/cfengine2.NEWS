@@ -1,0 +1,19 @@
+cfengine2 (2.2.6-1) unstable; urgency=medium
+
+    From version 2.2.4 of cfengine, documentation is not included in the
+    upstream sources and was not present in the cfengine2-doc package.
+
+    From version 2.2.6, the example-files are included in the
+    cfengine2 package and the cfengine2-doc package is removed. Online
+    documentation can be found here: http://www.cfengine.org/document.php
+
+ -- Morten Werner Forsbring <werner@debian.org>  Wed, 28 Apr 2008 22:49:49 +0200
+
+cfengine2 (2.1.15-1) unstable; urgency=high
+
+    Extra encryption stage added in C5 protocol. NOTE: This makes 2.1.14
+    cfagent clients unable to talk to older servers. (Upgrade servers first,
+    or at the same time.)
+
+ -- Morten Werner Olsen <werner@skolelinux.no>  Thu, 19 Jun 2005 22:59:27 +0200
+

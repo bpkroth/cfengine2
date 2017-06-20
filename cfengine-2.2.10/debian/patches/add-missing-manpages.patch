@@ -1,0 +1,66 @@
+Provide manpages for cfetool(8) and cfdoc(8) which were originally undocumented
+
+diff --git a/doc/Makefile.am b/doc/Makefile.am
+index f770cc7..3fba134 100644
+--- a/doc/Makefile.am
++++ b/doc/Makefile.am
+@@ -1,5 +1,5 @@
+ # Info used in building the MAN files
+-man_MANS = cfengine.8 cfagent.8  cfenvd.8  cfenvgraph.8  cfexecd.8  cfkey.8  cfrun.8  cfservd.8 cfshow.8 cfetoolcheck.8   cfetooldump.8   cfetoolimport.8  cfetoolupdate.8 cfetoolcreate.8  cfetoolgraph.8  cfetoolinfo.8 
++man_MANS = cfengine.8 cfagent.8  cfenvd.8  cfenvgraph.8  cfexecd.8  cfkey.8  cfrun.8  cfservd.8 cfshow.8 cfetoolcheck.8   cfetooldump.8   cfetoolimport.8  cfetoolupdate.8 cfetoolcreate.8  cfetoolgraph.8  cfetoolinfo.8  cfetool.8  cfdoc.8
+ 
+ # Info used in building the Info files
+ info_TEXINFOS = cfengine-Reference.texinfo cfengine-Tutorial.texinfo
+diff --git a/doc/cfdoc.8 b/doc/cfdoc.8
+new file mode 100644
+index 0000000..ae7f649
+--- /dev/null
++++ b/doc/cfdoc.8
+@@ -0,0 +1,24 @@
++.TH cfdoc 8 "2009-02-15"
++.SH "NAME"
++cfdoc \- Simple utility to document a cfengine configuration file
++.SH "SYNOPSIS"
++\&\fBcfdoc\fR
++\&[\fB\-c\fR\ \fIcomment_marker\fR]
++[\fB\-l\fR\ \fIlanguage\fR]
++[\fB\-s\fR\ \fIstart-marker\fR]
++[\fB\-e\fR\ \fIend-marker\fR]
++<file
++.SH "DESCRIPTION"
++The purpose of \fBcfdoc\fR(8) is to document a cfengine configuration file 
++(or other configuration file that uses '#' in the first line to indicate 
++comments).
++.SH "OPTIONS"
++.IP "\fB\-c comment_marker\fR" 4
++String indicating comment line (default is '#')
++.IP "\fB\-l language\fR" 4
++Markup language to use (default is LaTeX); known languages are "LaTeX", "HTML" and
++"texinfo"
++.IP "\fB\-s start_marker\fR" 4
++Markup for start of code (default \\begin{verbatim})
++.IP "\fB\-e end_marker\fR" 4
++Markup for end of code (default \\end{verbatim})
+diff --git a/doc/cfetool.8 b/doc/cfetool.8
+new file mode 100644
+index 0000000..23af7fd
+--- /dev/null
++++ b/doc/cfetool.8
+@@ -0,0 +1,17 @@
++.TH cfetool 8 "2009-02-15"
++.SH "NAME"
++cfetool \- Standalone UI for Long term state registry
++.SH "SYNOPSIS"
++\&\fBcfetool\fR [COMMAND] ARGS
++.SH "DESCRIPTION"
++\fBcfetool\fR allows arbitrary and periodic data to be stored and evaluated.
++The user interface is modeled after rrdtool, another widely used tool to store
++measured data.
++
++The COMMAND is the name of a cfetool command, each command has its own manpage;
++all commands are listed in the SEE ALSO section.
++
++.SH "SEE ALSO"
++\fBcfetoolcheck\fR(8), \fBcfetoolcreate\fR(8), \fBcfetooldump\fR(8), 
++\fBcfetoolgraph\fR(8), \fBcfetoolimport\fR(8), \fBcfetoolinfo\fR(8),
++\fBcfetoolupdate\fR(8)

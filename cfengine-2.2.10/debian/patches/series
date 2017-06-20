@@ -1,0 +1,13 @@
+admit-noclass-520696.patch
+511666-segfault.patch
+build-info.patch
+fix-manpages-paths.patch
+add-missing-manpages.patch
+fix-install-perms.patch
+fix-hyphens-in-manpages.patch
+fix-whatis-entries.patch
+fix-man-sections.patch
+kfreebsd-configure
+fix-spelling-errors.patch
+658945-drop-getopts-pl.patch
+hardening-changes.patch

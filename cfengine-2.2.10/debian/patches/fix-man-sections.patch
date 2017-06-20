@@ -1,0 +1,109 @@
+Despite the fact that the manuals were named in the right section, some
+descriptions inside some manuals were still referring to section (1) rather than
+section (8), this patch fixes the problem.
+
+diff --git a/doc/cfetoolcheck.8 b/doc/cfetoolcheck.8
+index fda2efe..9f8d796 100644
+--- a/doc/cfetoolcheck.8
++++ b/doc/cfetoolcheck.8
+@@ -128,8 +128,8 @@
+ .rm #[ #] #H #V #F C
+ .\" ========================================================================
+ .\"
+-.IX Title "CFETOOLCHECK 1"
+-.TH CFETOOLCHECK 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
++.IX Title "CFETOOLCHECK 8"
++.TH CFETOOLCHECK 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+ cfetoolcheck \- Check a new value against the averages currently in the database
+ .SH "SYNOPSIS"
+diff --git a/doc/cfetoolcreate.8 b/doc/cfetoolcreate.8
+index f02a16f..83d27c5 100644
+--- a/doc/cfetoolcreate.8
++++ b/doc/cfetoolcreate.8
+@@ -128,8 +128,8 @@
+ .rm #[ #] #H #V #F C
+ .\" ========================================================================
+ .\"
+-.IX Title "CFETOOLCREATE 1"
+-.TH CFETOOLCREATE 1 "2004-09-22" "perl v5.8.4" "User Contributed Perl Documentation"
++.IX Title "CFETOOLCREATE 8"
++.TH CFETOOLCREATE 8 "2004-09-22" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+ cfetoolcreate \- Set up a new Database
+ .SH "SYNOPSIS"
+diff --git a/doc/cfetooldump.8 b/doc/cfetooldump.8
+index 8efa2c6..c4dd05c 100644
+--- a/doc/cfetooldump.8
++++ b/doc/cfetooldump.8
+@@ -128,8 +128,8 @@
+ .rm #[ #] #H #V #F C
+ .\" ========================================================================
+ .\"
+-.IX Title "CFETOOLDUMP 1"
+-.TH CFETOOLDUMP 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
++.IX Title "CFETOOLDUMP 8"
++.TH CFETOOLDUMP 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+ cfetooldump \- dump the contents of a database in XML format
+ .SH "SYNOPSIS"
+diff --git a/doc/cfetoolgraph.8 b/doc/cfetoolgraph.8
+index fde4bd7..fbdacf9 100644
+--- a/doc/cfetoolgraph.8
++++ b/doc/cfetoolgraph.8
+@@ -128,8 +128,8 @@
+ .rm #[ #] #H #V #F C
+ .\" ========================================================================
+ .\"
+-.IX Title "CFETOOLGRAPH 1"
+-.TH CFETOOLGRAPH 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
++.IX Title "CFETOOLGRAPH 8"
++.TH CFETOOLGRAPH 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+ cfetoolgraph \- create graphs from a cfetool database
+ .SH "SYNOPSIS"
+diff --git a/doc/cfetoolimport.8 b/doc/cfetoolimport.8
+index 3588c60..ce38fc6 100644
+--- a/doc/cfetoolimport.8
++++ b/doc/cfetoolimport.8
+@@ -128,8 +128,8 @@
+ .rm #[ #] #H #V #F C
+ .\" ========================================================================
+ .\"
+-.IX Title "CFETOOLIMPORT 1"
+-.TH CFETOOLIMPORT 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
++.IX Title "CFETOOLIMPORT 8"
++.TH CFETOOLIMPORT 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+ cfetoolimport \- import the contents of a database from XML format
+ .SH "SYNOPSIS"
+diff --git a/doc/cfetoolinfo.8 b/doc/cfetoolinfo.8
+index dc3f173..4fbc599 100644
+--- a/doc/cfetoolinfo.8
++++ b/doc/cfetoolinfo.8
+@@ -128,8 +128,8 @@
+ .rm #[ #] #H #V #F C
+ .\" ========================================================================
+ .\"
+-.IX Title "CFETOOLINFO 1"
+-.TH CFETOOLINFO 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
++.IX Title "CFETOOLINFO 8"
++.TH CFETOOLINFO 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+ cfetoolinfo \- Get information about a database
+ .SH "SYNOPSIS"
+diff --git a/doc/cfetoolupdate.8 b/doc/cfetoolupdate.8
+index 06848d8..82cf8c3 100644
+--- a/doc/cfetoolupdate.8
++++ b/doc/cfetoolupdate.8
+@@ -128,8 +128,8 @@
+ .rm #[ #] #H #V #F C
+ .\" ========================================================================
+ .\"
+-.IX Title "CFETOOLUPDATE 1"
+-.TH CFETOOLUPDATE 1 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
++.IX Title "CFETOOLUPDATE 8"
++.TH CFETOOLUPDATE 8 "2004-09-21" "perl v5.8.4" "User Contributed Perl Documentation"
+ .SH "NAME"
+ cfetoolupdate \- Update the database with a new value
+ .SH "SYNOPSIS"

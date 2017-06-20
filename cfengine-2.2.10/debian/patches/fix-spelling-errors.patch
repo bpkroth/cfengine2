@@ -1,0 +1,185 @@
+Patch to fix some trivial spelling errors
+
+--- a/src/client.c
++++ b/src/client.c
+@@ -52,7 +52,7 @@
+  
+ if (CONN->sd == CF_NOT_CONNECTED)
+    {   
+-   Debug("Opening server connnection to %s\n",server);
++   Debug("Opening server connection to %s\n",server);
+ 
+    if (!RemoteConnect(server,ip->forceipv4,SHORT_CFENGINEPORT,STR_CFENGINEPORT))
+       {
+@@ -855,7 +855,7 @@
+ 
+ if ((sp = (struct cfstat *) malloc(sizeof(struct cfstat))) == NULL)
+    {
+-   CfLog(cferror,"Memory allocation faliure in CacheData()\n","");
++   CfLog(cferror,"Memory allocation failure in CacheData()\n","");
+    return;
+    }
+ 
+--- a/doc/cfetoolcheck.8
++++ b/doc/cfetoolcheck.8
+@@ -148,7 +148,7 @@
+ .IX Header "DESCRIPTION"
+ Takes a new value and checks it against the averages currently in the database
+ specified by \fIname\fR, located at the path specified by the \fB\-p\fR argument,
+-or the current working directory if the \fB\-p\fR argument is ommitted. 
++or the current working directory if the \fB\-p\fR argument is omitted.
+ The value will be associated with the current time, unless the \fB\-t\fR option is
+ given. The output indicates how much higher or lower the new value is compared
+ to the averages in the database, in terms of the number of standard deviations.
+--- a/doc/cfetoolcreate.8
++++ b/doc/cfetoolcreate.8
+@@ -153,7 +153,7 @@
+ subdirectory of the current working directory.
+ .PP
+ The \fB\-d\fR, \fB\-w\fR, and \fB\-y\fR options specify the period over which the data will
+-span, and may be combined to create multiple databases. If they are all ommitted,
++span, and may be combined to create multiple databases. If they are all omitted,
+ the default is weekly.
+ .SH "OPTIONS"
+ .IX Header "OPTIONS"
+--- a/doc/cfetooldump.8
++++ b/doc/cfetooldump.8
+@@ -148,7 +148,7 @@
+ for human readability. This format can be read by \fBcfetool import\fR.
+ .PP
+ The \fB\-d\fR, \fB\-w\fR, and \fB\-y\fR options specify which databases to include in the
+-dump, and may be combined. If they are all ommitted, the default is to only
++dump, and may be combined. If they are all omitted, the default is to only
+ dump the weekly database.
+ .SH "OPTIONS"
+ .IX Header "OPTIONS"
+--- a/doc/cfetoolimport.8
++++ b/doc/cfetoolimport.8
+@@ -148,7 +148,7 @@
+ \&\fBrrdtool dump\fR.
+ .PP
+ The \fB\-d\fR, \fB\-w\fR, and \fB\-y\fR options specify which databases to create and look
+-for in the dump, and may be combined. If they are all ommitted, the default is
++for in the dump, and may be combined. If they are all omitted, the default is
+ to only import the weekly database.
+ .SH "OPTIONS"
+ .IX Header "OPTIONS"
+--- a/doc/cfetoolupdate.8
++++ b/doc/cfetoolupdate.8
+@@ -149,7 +149,7 @@
+ .IX Header "DESCRIPTION"
+ Takes a new value and uses it to update the database specified by \fIname\fR,
+ located at the path specified by the \fB\-p\fR argument, or the current working
+-directory if the \fB\-p\fR argument is ommitted. The value will be associated with
++directory if the \fB\-p\fR argument is omitted. The value will be associated with
+ the current time, unless the \fB\-t\fR option is given. In order for cfetool to
+ function properly, this command should be issued at least once during each
+ interval specified by the \fB\-\-step\fR option of \f(CW\*(C`cfetool create\*(C'\fR.
+--- a/src/cfagent.c
++++ b/src/cfagent.c
+@@ -1846,7 +1846,7 @@
+           break;
+           
+       case 'V': printf("GNU cfengine %s\n%s\n",VERSION,COPYRIGHT);
+-          printf("This program is covered by the GNU Public License and may be\n");
++          printf("This program is covered by the GNU General Public License and may be\n");
+           printf("copied free of charge.  No warranty is implied.\n\n");
+           exit(0);
+           
+--- a/src/cfenvd.c
++++ b/src/cfenvd.c
+@@ -120,7 +120,7 @@
+          break;
+ 
+       case 'V': printf("GNU %s-%s daemon\n%s\n",PACKAGE,VERSION,COPYRIGHT);
+-         printf("This program is covered by the GNU Public License and may be\n");
++         printf("This program is covered by the GNU General Public License and may be\n");
+          printf("copied free of charge. No warrenty is implied.\n\n");
+          exit(0);
+          break;
+--- a/src/cfexecd.c
++++ b/src/cfexecd.c
+@@ -148,7 +148,7 @@
+          break;
+ 
+       case 'V': printf("GNU %s-%s daemon\n%s\n",PACKAGE,VERSION,COPYRIGHT);
+-          printf("This program is covered by the GNU Public License and may be\n");
++          printf("This program is covered by the GNU General Public License and may be\n");
+           printf("copied free of charge. No warrenty is implied.\n\n");
+           exit(0);
+           break;
+--- a/src/cfkey.c
++++ b/src/cfkey.c
+@@ -252,7 +252,7 @@
+           break;
+           
+       case 'V': printf("GNU cfengine %s\n%s\n",VERSION,COPYRIGHT);
+-          printf("This program is covered by the GNU Public License and may be\n");
++          printf("This program is covered by the GNU General Public License and may be\n");
+           printf("copied free of charge.  No warranty is implied.\n\n");
+           exit(0);
+           
+--- a/src/cfservd.c
++++ b/src/cfservd.c
+@@ -210,7 +210,7 @@
+          break;
+ 
+       case 'V': printf("GNU %s-%s daemon\n%s\n",PACKAGE,VERSION,COPYRIGHT);
+-          printf("This program is covered by the GNU Public License and may be\n");
++          printf("This program is covered by the GNU General Public License and may be\n");
+           printf("copied free of charge. No warrenty is implied.\n\n");
+           exit(0);
+           break;
+--- a/src/cfshow.c
++++ b/src/cfshow.c
+@@ -199,7 +199,7 @@
+          break;
+ 
+       case 'V': printf("GNU %s-%s db tool\n%s\n",PACKAGE,VERSION,COPYRIGHT);
+-          printf("This program is covered by the GNU Public License and may be\n");
++          printf("This program is covered by the GNU General Public License and may be\n");
+           printf("copied free of charge. No warrenty is implied.\n\n");
+           exit(0);
+           break;
+@@ -794,7 +794,7 @@
+       {
+       printf("%s",CFH[cfx_entry][cfb]);
+       printf("%s%s%s",CFH[cfx_event][cfb],array[i].name,CFH[cfx_event][cfe]);
+-      printf("%s last occured at %s%s",CFH[cfx_date][cfb],array[i].date,CFH[cfx_date][cfe]);
++      printf("%s last occurred at %s%s",CFH[cfx_date][cfb],array[i].date,CFH[cfx_date][cfe]);
+       printf("%s Probability %.4f %s",CFH[cfx_av][cfb],array[i].q,CFH[cfx_av][cfe]);
+       printf("%s &plusmn; %.4f %s",CFH[cfx_dev][cfb],sqrt(array[i].d),CFH[cfx_dev][cfe]);
+       printf("%s",CFH[cfx_entry][cfe]);
+--- a/src/globals.c
++++ b/src/globals.c
+@@ -517,7 +517,7 @@
+  PRIVATE char *ACTIONTEXT[] =
+       {
+       "",
+-      "Control Defintions:",
++      "Control Definitions:",
+       "Alerts:",
+       "Groups:",
+       "File Imaging:",
+--- a/src/parse.c
++++ b/src/parse.c
+@@ -1161,7 +1161,7 @@
+  
+ if (MINUSF && (*filename == '.' || *filename == '/'))
+    {
+-   Verbose("Manually overidden relative path (%s)\n",filename);
++   Verbose("Manually overridden relative path (%s)\n",filename);
+    strncpy(result,filename,CF_BUFSIZE-1);
+    return result;
+    }
+--- a/src/wrapper.c
++++ b/src/wrapper.c
+@@ -245,7 +245,7 @@
+       case compress:
+           break;
+           
+-      default:      FatalError("cfengine: Internal sofware error: Checkfiles(), bad action\n");
++      default:      FatalError("cfengine: Internal software error: Checkfiles(), bad action\n");
+       }
+    }
+ else

@@ -1,0 +1,18 @@
+Fix a bug involving CheckFriendReliability (see bug #482439)
+
+--- a/src/instrument.c
++++ b/src/instrument.c
+@@ -710,11 +710,11 @@
+       key.data = timekey;
+       key.size = strlen(timekey)+1;
+ 
+-      if ((errno = dbp->get(dbp,NULL,&key,&value,0)) != 0)
++      if ((errno = dbpent->get(dbpent,NULL,&key,&value,0)) != 0)
+          {
+          if (errno != DB_NOTFOUND)
+             {
+-            dbp->err(dbp,errno,NULL);
++            dbpent->err(dbpent,errno,NULL);
+             exit(1);
+             }
+          }
